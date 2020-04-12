@@ -2,12 +2,11 @@ package mrstraw.titlearea.interestpoint;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
 
 @SerializableAs("InterestPoint")
 public class InterestPoint implements ConfigurationSerializable {
@@ -69,12 +68,13 @@ public class InterestPoint implements ConfigurationSerializable {
 
     private static ArrayList<InterestPoint> listAll() {
         ArrayList<InterestPoint> listOfPoint = new ArrayList<>();
-        Set<String> Keys = InterestPointFiles.getFileInterestPoint().getKeys(false);
+        FileConfiguration config = InterestPointFiles.getFileInterestPoint();
+        Set<String> Keys = config.getKeys(false);
 
-        System.out.println(InterestPointFiles.getFileInterestPoint().getValues(true));
+        System.out.println(Keys);
 
         for (String key : Keys) {
-            listOfPoint.add((InterestPoint) InterestPointFiles.getFileInterestPoint().get(key));
+            listOfPoint.add(deserialize((Map)config.getConfigurationSection(key).getValues(false)));
         }
         return listOfPoint;
     }
