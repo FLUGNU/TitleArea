@@ -7,6 +7,7 @@ import org.bukkit.configuration.serialization.SerializableAs;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 @SerializableAs("InterestPoint")
 public class InterestPoint implements ConfigurationSerializable {
@@ -68,9 +69,12 @@ public class InterestPoint implements ConfigurationSerializable {
 
     private static ArrayList<InterestPoint> listAll() {
         ArrayList<InterestPoint> listOfPoint = new ArrayList<>();
-        int numberOfKeys = InterestPointFiles.getFileInterestPoint().getKeys(false).size();
-        for (int i = 0; i < numberOfKeys; i++) {
-            listOfPoint.add(InterestPoint.deserialize(InterestPointFiles.getFileInterestPoint().getValues(true)));
+        Set<String> Keys = InterestPointFiles.getFileInterestPoint().getKeys(false);
+
+        System.out.println(InterestPointFiles.getFileInterestPoint().getValues(true));
+
+        for (String key : Keys) {
+            listOfPoint.add((InterestPoint) InterestPointFiles.getFileInterestPoint().get(key));
         }
         return listOfPoint;
     }
