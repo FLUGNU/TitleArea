@@ -1,0 +1,32 @@
+package mrstraw.titlearea;
+
+import mrstraw.titlearea.interestpoint.InterestPoint;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.plugin.java.JavaPlugin;
+import mrstraw.titlearea.interestpoint.InterestPointFiles;
+
+import java.util.ArrayList;
+
+public final class TitleArea extends JavaPlugin {
+    static {
+        ConfigurationSerialization.registerClass(InterestPoint.class, "InterestPoint");
+    }
+
+    @Override
+    public void onEnable() {
+        System.out.println("-- TitleArea : Enable plugin");
+        InterestPointFiles.setupFileInterestpoint();
+        InterestPointFiles.getFileInterestPoint().options().copyDefaults(true);
+        InterestPointFiles.saveFileInterestPoint();
+
+        getCommand("TitleArea").setExecutor(new TitleAreaCommands());
+
+        System.out.println("-- TitleArea : plugin is enable");
+    }
+
+    @Override
+    public void onDisable() {
+        // Plugin shutdown logic
+    }
+
+}

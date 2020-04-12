@@ -1,0 +1,11 @@
+name: TitleArea
+version: 1.0-SNAPSHOT
+main: mrstraw.titlearea.TitleArea
+api-version: 1.13
+authors: [MrStraw]
+description: Title in specific place
+website: flugnu.xyz
+
+commands:
+  TitleArea:
+    description: prout
