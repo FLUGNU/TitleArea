@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 
@@ -23,20 +24,21 @@ public class InterestPointEvent implements Listener {
     }
 
     private boolean lookingAt(Location playerLoc, InterestPoint point){
-        double Zp = playerLoc.getZ();
-        double Xp = playerLoc.getX();
         Location pointLoc = point.getLocation();
-        double Zj = pointLoc.getZ();
-        double Xj = pointLoc.getX();
-        double A = playerLoc.getYaw();
-        double D = playerLoc.distance(pointLoc);
         double r = point.getRadius();
 
-        double playerPointAngle = Math.acos(((Zp - Zj)*Math.cos(A) - (Xp - Xj)*Math.sin(A))/D);
+        Vector playerDirection = playerLoc.getDirection();
+        playerDirection.normalize();
+        Vector delta = pointLoc.toVector().add(playerLoc.toVector().multiply(-1));
+        double D = delta.length();
+        delta.normalize();
+
+        double playerPointAngle = Math.acos(delta.dot(playerDirection));
         double maxAngle = Math.asin(r/Math.sqrt(Math.pow(r, 2) + Math.pow(D, 2)));
 
-        boolean angleCondition = (playerPointAngle < maxAngle) && (-maxAngle < playerPointAngle);
+        boolean angleCondition = playerPointAngle < maxAngle;
         boolean distanceCondition = D < point.getDistance();
+
 
         return angleCondition && distanceCondition;
     }

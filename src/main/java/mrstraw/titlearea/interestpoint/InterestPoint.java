@@ -74,6 +74,7 @@ public class InterestPoint implements ConfigurationSerializable {
         System.out.println(Keys);
 
         for (String key : Keys) {
+            System.out.println("bite couille chatte");
             listOfPoint.add(deserialize((Map)config.getConfigurationSection(key).getValues(false)));
         }
         return listOfPoint;
