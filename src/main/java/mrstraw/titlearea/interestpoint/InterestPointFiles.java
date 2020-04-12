@@ -34,12 +34,12 @@ public class InterestPointFiles {
         } catch (IOException exception) {
             System.out.println("-- TitleArea : Couldn't save file 'FileInterestPoint'");
         }
-        //InterestPoint.setListPoint();
+        InterestPoint.setListPoint();
     }
 
     public static void reloadFileInterestPoint() {
         FileInterestPoint = YamlConfiguration.loadConfiguration(file);
-        //InterestPoint.setListPoint();
+        InterestPoint.setListPoint();
     }
 }
 
