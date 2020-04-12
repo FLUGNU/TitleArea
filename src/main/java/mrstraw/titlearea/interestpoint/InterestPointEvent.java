@@ -17,7 +17,7 @@ public class InterestPointEvent implements Listener {
         ArrayList<InterestPoint> listPoint = InterestPoint.getListPoint();
         for (InterestPoint point : listPoint) {
             if (lookingAt(PlayerLoc, point)) {
-                event.getPlayer().sendMessage("Tu regardes" + point.getTitle());
+                event.getPlayer().sendMessage("Tu regardes " + point.getTitle());
             }
         }
     }
