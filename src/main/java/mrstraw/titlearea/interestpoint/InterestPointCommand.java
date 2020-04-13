@@ -3,7 +3,6 @@ package mrstraw.titlearea.interestpoint;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import java.util.ArrayList;
 import java.util.Set;
 
 import static mrstraw.titlearea.TitleArea.sendTitleArea;
@@ -19,7 +18,7 @@ public class InterestPointCommand {
 
     //------------------------------------------------------------------------------------------------------------------
 
-        else if(args[1].equals("SetNew")) {
+        else if(args[1].equalsIgnoreCase("SetNew")) {
             // Si le sender est un joueur p
             if(sender instanceof Player) {
                 Player p = (Player) sender;
@@ -50,7 +49,7 @@ public class InterestPointCommand {
 
     //------------------------------------------------------------------------------------------------------------------
 
-        else if(args[1].equals("List")) {
+        else if(args[1].equalsIgnoreCase("List")) {
             Set<String> listKey = config.getKeys(false);
 
             // Si il y n'y a pas de point d'interet

@@ -14,7 +14,7 @@ public class TitleAreaCommands implements CommandExecutor {
             sender.sendMessage(sendTitleArea("Bad argument(s), do '/TitleArea [arg]' or '/help TitleArea'"));
         }
         //args.toString().substring(1,args.length); //pour retirer l'args[0]
-        else if(args[0].equals("InterestPoint")) {
+        else if(args[0].equalsIgnoreCase("InterestPoint")) {
             new InterestPointCommand(sender, args);
         }
         else {
