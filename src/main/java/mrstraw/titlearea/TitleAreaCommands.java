@@ -16,7 +16,7 @@ import static mrstraw.titlearea.TitleArea.sendTitleArea;
 
 public class TitleAreaCommands implements CommandExecutor {
 
-    public final static CommandTreeNode Commands;
+    public static CommandTreeNode Commands;
 
     static {
 
