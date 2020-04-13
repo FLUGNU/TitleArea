@@ -5,7 +5,6 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
-
 import java.util.*;
 
 @SerializableAs("InterestPoint")
@@ -71,10 +70,7 @@ public class InterestPoint implements ConfigurationSerializable {
         FileConfiguration config = InterestPointFiles.getFileInterestPoint();
         Set<String> Keys = config.getKeys(false);
 
-        System.out.println(Keys);
-
         for (String key : Keys) {
-            System.out.println("bite couille chatte");
             listOfPoint.add(deserialize((Map)config.getConfigurationSection(key).getValues(false)));
         }
         return listOfPoint;

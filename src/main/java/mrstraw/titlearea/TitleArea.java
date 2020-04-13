@@ -6,8 +6,6 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 import mrstraw.titlearea.interestpoint.InterestPointFiles;
 
-import java.util.ArrayList;
-
 public final class TitleArea extends JavaPlugin {
     static {
         ConfigurationSerialization.registerClass(InterestPoint.class, "InterestPoint");
@@ -21,7 +19,6 @@ public final class TitleArea extends JavaPlugin {
         InterestPointFiles.saveFileInterestPoint();
 
         getCommand("TitleArea").setExecutor(new TitleAreaCommands());
-
         getServer().getPluginManager().registerEvents(new InterestPointEvent(), this);
 
         System.out.println("-- TitleArea : plugin is enable");
