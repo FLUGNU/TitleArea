@@ -1,8 +1,9 @@
 package mrstraw.titlearea;
 
+import mrstraw.titlearea.commands.TitleAreaCommands;
+import mrstraw.titlearea.commands.TitleAreaTabCompleter;
 import mrstraw.titlearea.interestpoint.InterestPoint;
 import mrstraw.titlearea.interestpoint.InterestPointEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;

@@ -1,4 +1,4 @@
-package mrstraw.titlearea;
+package mrstraw.titlearea.commands;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +63,10 @@ public class CommandTreeNode {
             result.add(child.getData());
         }
         return result;
+    }
+
+    public void resetChildren(){
+        this.children = null;
     }
 
     public CommandTreeNode getParent(){
