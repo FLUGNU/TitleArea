@@ -17,7 +17,7 @@ public class InterestPointCommand {
             sender.sendMessage(sendTitleArea("Bad argument(s), do '/TitleArea InterestPoint [arg]' or '/help TitleArea'"));
         }
 
-        //------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
 
         else if(args[1].equals("SetNew")) {
             // Si le sender est un joueur p
@@ -30,17 +30,12 @@ public class InterestPointCommand {
                 }
                 //p a donné un nom au nouveau point
                 else {
-                    // Regarde si le nom est libre
-                    boolean found = false;
-                    for (int i = 0; i < args.length; i++) {
-                        // Ce nom est deja pris
-                        if ( config.getKeys(false).equals(args[2]) ) {
-                            found = true;
-                            p.sendMessage(sendTitleArea("Name key already exist (at key position " + i + "), choose another"));
-                        }
+                    // Le nom donné est pris
+                    if ( config.getKeys(false).contains(args[2]) ) {
+                        p.sendMessage(sendTitleArea("Name key '" + args[2] + "' already exist, choose another"));
                     }
-                    // Ce nom est libre
-                    if (!found) {
+                    // Ce nom donné est libre
+                    else {
                         String pointName = args[2];
                         InterestPoint newPoint = new InterestPoint("Title of " + pointName, p.getLocation());
                         config.createSection(pointName, newPoint.serialize());
@@ -53,7 +48,7 @@ public class InterestPointCommand {
             else { sender.sendMessage(sendTitleArea("You need to be a player for that")); }
         }
 
-        //------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
 
         else if(args[1].equals("List")) {
             Set<String> listKey = config.getKeys(false);
@@ -64,14 +59,15 @@ public class InterestPointCommand {
             }
             // Si il y a des points d'interet
             else {
-                sender.sendMessage(sendTitleArea("Liste des points d'interet :"));
+                sender.sendMessage(sendTitleArea("List of interest point :"));
                 for(String nameKey : listKey) {
                     sender.sendMessage("                  - " + nameKey);
                 }
             }
         }
 
-        //------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+
     }
 }
 
