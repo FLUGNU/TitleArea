@@ -34,14 +34,14 @@ public class TitleAreaCommands implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (args.length==0){
-            sender.sendMessage(sendTitleArea("Bad argument(s), do '/TitleArea [arg]' or '/help TitleArea'"));
+            sender.sendMessage(sendTitleArea("Bad argument(s),\ndo '/TitleArea [arg]'\nor '/help TitleArea'",true));
         }
         //args.toString().substring(1,args.length); //pour retirer l'args[0]
         else if(args[0].equalsIgnoreCase("InterestPoint")) {
             new InterestPointCommand(sender, args);
         }
         else {
-            sender.sendMessage(sendTitleArea("Bad argument, do '/help TitleArea'"));
+            sender.sendMessage(sendTitleArea("Bad argument, do :\n'/help TitleArea'",true));
             return true;
         }
         return false;

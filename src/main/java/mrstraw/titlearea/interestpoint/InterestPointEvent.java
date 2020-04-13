@@ -36,7 +36,6 @@ public class InterestPointEvent implements Listener {
         boolean angleCondition = playerPointAngle < maxAngle;
         boolean distanceCondition = D < point.getDistance();
 
-
         return angleCondition && distanceCondition;
     }
 }
