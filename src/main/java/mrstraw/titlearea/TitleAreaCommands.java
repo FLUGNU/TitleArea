@@ -16,19 +16,17 @@ import static mrstraw.titlearea.TitleArea.sendTitleArea;
 
 public class TitleAreaCommands implements CommandExecutor {
 
-    public final static CommandTreeNode<String> Commands;
+    public final static CommandTreeNode Commands;
 
     static {
 
-        ArrayList<String> InterestPointSetNewSuggestions = null;
         ArrayList<String> InterestPointDeleteSuggestions = new ArrayList<String>(InterestPointFiles.getFileInterestPoint().getKeys(false));
-        ArrayList<String> InterestPointListSuggestions = null;
 
-        Commands = new CommandTreeNode<String>("TitleArea");
-        CommandTreeNode<String> InterestPointCommands = Commands.addChild("InterestPoint");
-        InterestPointCommands.addChild("SetNew").addChildren(InterestPointSetNewSuggestions);
+        Commands = new CommandTreeNode("TitleArea");
+        CommandTreeNode InterestPointCommands = Commands.addChild("InterestPoint");
+        InterestPointCommands.addChild("SetNew");
         InterestPointCommands.addChild("Delete").addChildren(InterestPointDeleteSuggestions);
-        InterestPointCommands.addChild("List").addChildren(InterestPointListSuggestions);
+        InterestPointCommands.addChild("List");
 
     }
 

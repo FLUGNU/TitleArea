@@ -3,83 +3,93 @@ package mrstraw.titlearea;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandTreeNode<T> {
+public class CommandTreeNode {
 
-    private T data;
-    private CommandTreeNode<T> parent;
-    private List<CommandTreeNode<T>> children;
+    private String data;
+    private CommandTreeNode parent;
+    private List<CommandTreeNode> children;
 
-    public CommandTreeNode(T data, CommandTreeNode<T> parent, List<CommandTreeNode<T>> children) {
+    public CommandTreeNode(String data, CommandTreeNode parent, List<CommandTreeNode> children) {
         this.data = data;
         this.parent = parent;
         this.children = children;
     }
 
-    public CommandTreeNode(T data, CommandTreeNode<T> parent) {
+    public CommandTreeNode(String data, CommandTreeNode parent) {
         this.data = data;
         this.parent = parent;
         this.children = null;
     }
 
-    public CommandTreeNode(T data) {
+    public CommandTreeNode(String data) {
         this.data = data;
         this.parent = null;
         this.children = null;
     }
 
-    public CommandTreeNode<T> addChild(T child) {
-        CommandTreeNode<T> childNode = new CommandTreeNode<T>(child, this);
+    public CommandTreeNode addChild(String child) {
+        CommandTreeNode childNode = new CommandTreeNode(child, this);
+        if (this.getChildren()==null){
+            this.children = new ArrayList<CommandTreeNode>();
+        }
         this.children.add(childNode);
         return childNode;
     }
 
-    public void addChildren(List<T> children) {
-        List<CommandTreeNode<T>> childrenNodes = new ArrayList<CommandTreeNode<T>>();
-        for (T child : children){
-            CommandTreeNode<T> childNode = new CommandTreeNode<T>(child, this);
+    public void addChildren(List<String> children) {
+        if (children == null){
+            return;
+        }
+        List<CommandTreeNode> childrenNodes = new ArrayList<CommandTreeNode>();
+        if (this.getChildren()==null){
+            this.children = new ArrayList<CommandTreeNode>();
+        }
+        for (String child : children){
+            CommandTreeNode childNode = new CommandTreeNode(child, this);
             this.children.add(childNode);
         }
     }
 
-    public List<CommandTreeNode<T>> getChildren(){
+    public List<CommandTreeNode> getChildren(){
         return this.children;
     }
 
-    public List<T> getChildrenData(){
-        ArrayList<T> result = new ArrayList<>();
-        for (CommandTreeNode<T> child : this.getChildren()){
+    public List<String> getChildrenData(){
+        ArrayList<String> result = new ArrayList<>();
+        if (this.getChildren() == null){
+            return null;
+        }
+        for (CommandTreeNode child : this.getChildren()){
             result.add(child.getData());
         }
         return result;
     }
 
-    public CommandTreeNode<T> getParent(){
+    public CommandTreeNode getParent(){
         return this.parent;
     }
 
-    public T getData(){
+    public String getData(){
         return this.data;
     }
 
-    public CommandTreeNode<T> getElement(T data) {
-        CommandTreeNode<T> root = this;
+    public CommandTreeNode getElement(String data) {
+        CommandTreeNode root = this;
         while (root.getParent() != null){
             root = root.getParent();
         }
-        return searchInSubTree(data);
+        return root.searchInSubTree(data);
     }
 
-    public CommandTreeNode<T> searchInSubTree(T data) {
+    public CommandTreeNode searchInSubTree(String data) {
 
-        if (this.getData() == data) {
+        if (this.getData().equalsIgnoreCase(data)) {
             return this;
         } else {
-            if (this.getChildren() == null) {
-                return null;
-            } else {
-                for (CommandTreeNode<T> child : this.getChildren()) {
+            if (this.getChildren() != null) {
+                for (CommandTreeNode child : this.getChildren()) {
                     if (child.searchInSubTree(data) != null) {
-                        return child;
+                        return child.searchInSubTree(data);
                     }
                 }
             }
