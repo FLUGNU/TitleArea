@@ -5,9 +5,24 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+
 import static mrstraw.titlearea.TitleArea.sendTitleArea;
 
 public class TitleAreaCommands implements CommandExecutor {
+
+    public final static ArrayList<String> typesOfRegions;
+    public final static ArrayList<String> InterestPointCommands;
+
+    static {
+        typesOfRegions = new ArrayList<>();
+        typesOfRegions.add("InterestPoint");
+
+        InterestPointCommands = new ArrayList<>();
+        InterestPointCommands.add("SetNew");
+        InterestPointCommands.add("List");
+        InterestPointCommands.add("Delete");
+    }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (args.length==0){
@@ -23,15 +38,4 @@ public class TitleAreaCommands implements CommandExecutor {
         }
         return false;
     }
-
-    /*public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length == 1) {
-            List<String> arguments = new ArrayList<>();
-            arguments.add("InterestPoint");
-
-            return arguments;
-        }
-        return null;
-    }*/
-
 }
