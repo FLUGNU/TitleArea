@@ -30,7 +30,7 @@ public class InterestPointCommand {
                 //p a donné un nom au nouveau point
                 else {
                     // Le nom donné est pris
-                    if ( config.getKeys(false).contains(args[2]) ) {
+                    if ( config.contains(args[2]) ) {
                         p.sendMessage(sendTitleArea("Name key '" + args[2] + "' already exist, choose another"));
                     }
                     // Ce nom donné est libre
@@ -66,6 +66,27 @@ public class InterestPointCommand {
         }
 
     //------------------------------------------------------------------------------------------------------------------
+
+        else if(args[1].equalsIgnoreCase("Delete")) {
+            //p n'a pas donné de nom au point à supprimer
+            if(args.length==2) {
+                sender.sendMessage(sendTitleArea("You have to choose a name key : /TitleArea InterestPoint Delete [NameKey]"));
+            }
+            //p a donné un nom au point à supprimer
+            else {
+                String path = args[2];
+                // Le nom donné existe
+                if ( config.contains(path) ) {
+                    config.set(path, null);
+                    InterestPointFiles.saveFileInterestPoint();
+                    sender.sendMessage(sendTitleArea("The interest point '" + path + "' has been deleted"));
+                }
+                // Ce nom n'existe pas
+                else {
+                    sender.sendMessage(sendTitleArea("The given name '" + path + "' does not exist"));
+                }
+            }
+        }
 
     }
 }
