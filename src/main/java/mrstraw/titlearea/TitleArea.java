@@ -22,7 +22,7 @@ public final class TitleArea extends JavaPlugin {
 
         getCommand("TitleArea").setExecutor(new TitleAreaCommands());
         getServer().getPluginManager().registerEvents(new InterestPointEvent(), this);
-
+        getCommand("TitleArea").setTabCompleter(new TitleAreaTabCompleter());
         System.out.println("-- TitleArea -- Plugin is enable");
     }
 
