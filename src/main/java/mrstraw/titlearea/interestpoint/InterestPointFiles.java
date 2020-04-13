@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
+import static mrstraw.titlearea.TitleArea.sendTitleArea;
 
 public class InterestPointFiles {
 
@@ -32,7 +33,7 @@ public class InterestPointFiles {
         try {
             FileInterestPoint.save(file);
         } catch (IOException exception) {
-            System.out.println("-- TitleArea : Couldn't save file 'FileInterestPoint'");
+            System.out.println(sendTitleArea("Couldn't save file 'FileInterestPoint'"));
         }
         InterestPoint.setListPoint();
     }

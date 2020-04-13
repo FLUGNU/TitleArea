@@ -5,18 +5,20 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import static mrstraw.titlearea.TitleArea.sendTitleArea;
+
 public class TitleAreaCommands implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (args.length==0){
-            sender.sendMessage("-- TitleArea : Bad argument(s), do '/TitleArea [arg]' or '/help TitleArea'");
+            sender.sendMessage(sendTitleArea("Bad argument(s), do '/TitleArea [arg]' or '/help TitleArea'"));
         }
         //args.toString().substring(1,args.length); //pour retirer l'args[0]
         else if(args[0].equals("InterestPoint")) {
             new InterestPointCommand(sender, args);
         }
         else {
-            sender.sendMessage("-- TitleArea : Bad argument, do '/help TitleArea'");
+            sender.sendMessage(sendTitleArea("Bad argument, do '/help TitleArea'"));
             return true;
         }
         return false;
