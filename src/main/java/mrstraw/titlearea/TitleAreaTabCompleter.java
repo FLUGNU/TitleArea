@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TitleAreaTabCompleter implements TabCompleter {
-
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length == 1) {
-            return new ArrayList<>(TitleAreaCommands.typesOfRegions);
+        List<String> ValidCommands = new ArrayList<String>();
+        for (String currentCommand: TitleAreaCommands.Commands.getElement(args[args.length - 2]).getChildrenData()){
+            if (currentCommand.startsWith(args[args.length - 1])){
+                ValidCommands.add(currentCommand);
+            }
         }
-        else if (args.length == 2 && args[0].equals(TitleAreaCommands.typesOfRegions.get(0))) {
-            return new ArrayList<>(TitleAreaCommands.InterestPointCommands);
-        }
-        return null;
+        return ValidCommands;
     }
 }
+

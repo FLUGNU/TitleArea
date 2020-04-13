@@ -1,27 +1,35 @@
 package mrstraw.titlearea;
 
+import mrstraw.titlearea.interestpoint.InterestPoint;
 import mrstraw.titlearea.interestpoint.InterestPointCommand;
+import mrstraw.titlearea.interestpoint.InterestPointFiles;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import static mrstraw.titlearea.TitleArea.sendTitleArea;
 
 public class TitleAreaCommands implements CommandExecutor {
 
-    public final static ArrayList<String> typesOfRegions;
-    public final static ArrayList<String> InterestPointCommands;
+    public final static CommandTreeNode<String> Commands;
 
     static {
-        typesOfRegions = new ArrayList<>();
-        typesOfRegions.add("InterestPoint");
 
-        InterestPointCommands = new ArrayList<>();
-        InterestPointCommands.add("SetNew");
-        InterestPointCommands.add("List");
-        InterestPointCommands.add("Delete");
+        ArrayList<String> InterestPointSetNewSuggestions = null;
+        ArrayList<String> InterestPointDeleteSuggestions = new ArrayList<String>(InterestPointFiles.getFileInterestPoint().getKeys(false));
+        ArrayList<String> InterestPointListSuggestions = null;
+
+        Commands = new CommandTreeNode<String>("TitleArea");
+        CommandTreeNode<String> InterestPointCommands = Commands.addChild("InterestPoint");
+        InterestPointCommands.addChild("SetNew").addChildren(InterestPointSetNewSuggestions);
+        InterestPointCommands.addChild("Delete").addChildren(InterestPointDeleteSuggestions);
+        InterestPointCommands.addChild("List").addChildren(InterestPointListSuggestions);
+
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
