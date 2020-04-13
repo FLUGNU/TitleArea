@@ -31,9 +31,15 @@ public final class TitleArea extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public static String sendTitleArea(String sentence) {
-        String prefix = ChatColor.BOLD + "" + ChatColor.AQUA + "-- TitleArea -- " + ChatColor.RESET;
-        return prefix + sentence;
+    public static String sendTitleArea(String sentence, boolean close) {
+        String prefix = ChatColor.BOLD + "" + ChatColor.AQUA + "--------- - TitleArea - ---------" + ChatColor.RESET;
+        String sufix = ChatColor.BOLD + "" + ChatColor.AQUA +  "------------------------------";
+        if (close) {
+            return "\n" + prefix + "\n" + sentence + "\n" + sufix;
+        }
+        else {
+            return "\n" + prefix + "\n" + sentence;
+        }
     }
 
 }
