@@ -27,14 +27,12 @@ public class TitleAreaCommands implements CommandExecutor {
         InterestPointCommands.addChild("SetNew");
         InterestPointCommands.addChild("Delete").addChildren(InterestPointDeleteSuggestions);
         InterestPointCommands.addChild("List");
-
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (args.length==0){
             sender.sendMessage(sendTitleArea("Bad argument(s),\ndo '/TitleArea [arg]'\nor '/help TitleArea'",true));
         }
-        //args.toString().substring(1,args.length); //pour retirer l'args[0]
         else if(args[0].equalsIgnoreCase("InterestPoint")) {
             new InterestPointCommand(sender, args);
         }

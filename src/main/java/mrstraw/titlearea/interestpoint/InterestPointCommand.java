@@ -37,7 +37,7 @@ public class InterestPointCommand {
                     // Ce nom donné est libre
                     else {
                         String pointName = args[2];
-                        InterestPoint newPoint = new InterestPoint("Title of " + pointName, p.getLocation());
+                        InterestPoint newPoint = new InterestPoint(pointName, p.getLocation());
                         config.createSection(pointName, newPoint.serialize());
                         InterestPointFiles.saveFileInterestPoint();
                         p.sendMessage(sendTitleArea("Nouveau point '" + pointName + "' créé",true));

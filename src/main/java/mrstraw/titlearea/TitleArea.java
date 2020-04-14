@@ -4,6 +4,7 @@ import mrstraw.titlearea.commands.TitleAreaCommands;
 import mrstraw.titlearea.commands.TitleAreaTabCompleter;
 import mrstraw.titlearea.interestpoint.InterestPoint;
 import mrstraw.titlearea.interestpoint.InterestPointEvent;
+import mrstraw.titlearea.interestpoint.PointEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,7 +23,7 @@ public final class TitleArea extends JavaPlugin {
         InterestPointFiles.saveFileInterestPoint();
 
         getCommand("TitleArea").setExecutor(new TitleAreaCommands());
-        getServer().getPluginManager().registerEvents(new InterestPointEvent(), this);
+        getServer().getPluginManager().registerEvents(new PointEvent(), this);
         getCommand("TitleArea").setTabCompleter(new TitleAreaTabCompleter());
         System.out.println("-- TitleArea -- Plugin is enable");
     }

@@ -8,4 +8,5 @@ website: flugnu.xyz
 
 commands:
   TitleArea:
-    description: prout
+    description: Access the TitleArea plugin's commands
+    aliases: ta

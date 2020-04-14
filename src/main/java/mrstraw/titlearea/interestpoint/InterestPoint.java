@@ -10,6 +10,7 @@ import java.util.*;
 @SerializableAs("InterestPoint")
 public class InterestPoint implements ConfigurationSerializable {
 
+    private final String name;
     private String title;
     private Location coord;
     private int radius;
@@ -17,19 +18,29 @@ public class InterestPoint implements ConfigurationSerializable {
     //------------------------
     private static ArrayList<InterestPoint> listPoint;
 
-    public InterestPoint(String title, Location coord, int radius, int distance) {
+    public InterestPoint(String name, String title, Location coord, int radius, int distance) {
+        this.name = name;
         this.title = title;
         this.coord = coord;
         this.radius = radius;
         this.distance = distance;
     }
-    public InterestPoint(String title, Location coord) {
-        this.title = title;
+    public InterestPoint(String name, Location coord) {
+        this.name = name;
+        this.title = "Title of " + name;
         this.coord = coord;
         radius = 10;
         distance = 100;
     }
 
+    public static InterestPoint deserialize(Map<String, Object> args) {
+        String name = (String)args.get("name");
+        String title = (String)args.get("title");
+        Location coord = new Location( Bukkit.getWorld((String)args.get("world")), (Double)args.get("x"), (Double)args.get("y"), (Double)args.get("z"));
+        int radius = (int)args.get("radius");
+        int distance = (int)args.get("distance");
+        return new InterestPoint(name, title, coord, radius, distance);
+    }
     public String getTitle() { return title; }
     public Location getLocation() { return coord; }
     public int getRadius() { return radius; }
@@ -44,9 +55,12 @@ public class InterestPoint implements ConfigurationSerializable {
     //------------------------
     public static void setListPoint() { listPoint = listAll(); }
 
+    public String getName() { return name; }
+
     @Override
     public Map<String, Object> serialize() {
         LinkedHashMap point = new LinkedHashMap();
+        point.put("name", this.getName());
         point.put("world", this.getLocation().getWorld().getName());
         point.put("title", this.getTitle());
         point.put("x", this.getLocation().getX());
@@ -55,14 +69,6 @@ public class InterestPoint implements ConfigurationSerializable {
         point.put("radius", this.getRadius());
         point.put("distance", this.getDistance());
         return point;
-    }
-
-    public static InterestPoint deserialize(Map<String, Object> args) {
-        String title = (String)args.get("title");
-        Location coord = new Location( Bukkit.getWorld((String)args.get("world")), (Double)args.get("x"), (Double)args.get("y"), (Double)args.get("z"));
-        int radius = (int)args.get("radius");
-        int distance = (int)args.get("distance");
-        return new InterestPoint(title, coord, radius, distance);
     }
 
     private static ArrayList<InterestPoint> listAll() {
