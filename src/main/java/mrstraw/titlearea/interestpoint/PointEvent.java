@@ -106,5 +106,4 @@ public class PointEvent implements Listener {
         return radiusCondition && sameWorld;
     }
 
-
 }

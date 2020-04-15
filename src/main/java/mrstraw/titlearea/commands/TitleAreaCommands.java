@@ -1,6 +1,5 @@
-package mrstraw.titlearea;
+package mrstraw.titlearea.commands;
 
-import mrstraw.titlearea.interestpoint.InterestPoint;
 import mrstraw.titlearea.interestpoint.InterestPointCommand;
 import mrstraw.titlearea.interestpoint.InterestPointFiles;
 import org.bukkit.command.Command;
@@ -8,9 +7,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 import static mrstraw.titlearea.TitleArea.sendTitleArea;
 

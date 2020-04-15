@@ -3,7 +3,6 @@ package mrstraw.titlearea;
 import mrstraw.titlearea.commands.TitleAreaCommands;
 import mrstraw.titlearea.commands.TitleAreaTabCompleter;
 import mrstraw.titlearea.interestpoint.InterestPoint;
-import mrstraw.titlearea.interestpoint.InterestPointEvent;
 import mrstraw.titlearea.interestpoint.PointEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -30,7 +29,7 @@ public final class TitleArea extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        System.out.println("-- TitleArea -- Plugin is now disable");
     }
 
     public static String sendTitleArea(String sentence, boolean close) {
