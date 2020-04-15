@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static mrstraw.titlearea.TitleArea.sendTitleArea;
 
@@ -21,9 +22,9 @@ public class CommandInfo {
             String pointName = args[1];
             // Le nom donné existe
             if (config.contains(pointName)) {
-                ArrayList<InterestPoint> listAllPoint = InterestPoint.getListPoint();
+                HashMap<String, InterestPoint> listAllPoint = InterestPoint.getListPoint();
                 String listText = "Info of point '" + pointName + "' :\n- - - - - - - - - - - - - - - - - -";
-                for(InterestPoint iPoint : listAllPoint) {
+                for(InterestPoint iPoint : listAllPoint.values()) {
                     if(iPoint.getName().equals(pointName)) {
                         listText = listText + "\n  Title : " + iPoint.getTitle();
                         listText = listText + "\n  X : " + iPoint.getLocation().getBlockX();

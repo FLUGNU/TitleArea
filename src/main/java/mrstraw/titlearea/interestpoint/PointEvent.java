@@ -22,11 +22,11 @@ public class PointEvent implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         Player p = event.getPlayer();
         Location playerLoc = p.getLocation();
-        ArrayList<InterestPoint> listAllPoint = InterestPoint.getListPoint();
+        HashMap<String, InterestPoint> listAllPoint = InterestPoint.getListPoint();
         ArrayList<InterestPoint> aroundPoint = new ArrayList<>();
 
         // --------- - Partie affichage distance - --------------------
-        for (InterestPoint iPoint : listAllPoint) {
+        for (InterestPoint iPoint : listAllPoint.values()) {
             if (playerLookPoint(playerLoc,iPoint)) {
                 aroundPoint.add(iPoint);
             }
