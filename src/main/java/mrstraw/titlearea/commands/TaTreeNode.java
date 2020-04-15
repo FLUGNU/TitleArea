@@ -3,34 +3,34 @@ package mrstraw.titlearea.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandTreeNode {
+public class TaTreeNode {
 
     private String data;
-    private CommandTreeNode parent;
-    private List<CommandTreeNode> children;
+    private TaTreeNode parent;
+    private List<TaTreeNode> children;
 
-    public CommandTreeNode(String data, CommandTreeNode parent, List<CommandTreeNode> children) {
+    public TaTreeNode(String data, TaTreeNode parent, List<TaTreeNode> children) {
         this.data = data;
         this.parent = parent;
         this.children = children;
     }
 
-    public CommandTreeNode(String data, CommandTreeNode parent) {
+    public TaTreeNode(String data, TaTreeNode parent) {
         this.data = data;
         this.parent = parent;
         this.children = null;
     }
 
-    public CommandTreeNode(String data) {
+    public TaTreeNode(String data) {
         this.data = data;
         this.parent = null;
         this.children = null;
     }
 
-    public CommandTreeNode addChild(String child) {
-        CommandTreeNode childNode = new CommandTreeNode(child, this);
+    public TaTreeNode addChild(String child) {
+        TaTreeNode childNode = new TaTreeNode(child, this);
         if (this.getChildren()==null){
-            this.children = new ArrayList<CommandTreeNode>();
+            this.children = new ArrayList<TaTreeNode>();
         }
         this.children.add(childNode);
         return childNode;
@@ -40,17 +40,17 @@ public class CommandTreeNode {
         if (children == null){
             return;
         }
-        List<CommandTreeNode> childrenNodes = new ArrayList<CommandTreeNode>();
+        List<TaTreeNode> childrenNodes = new ArrayList<TaTreeNode>();
         if (this.getChildren()==null){
-            this.children = new ArrayList<CommandTreeNode>();
+            this.children = new ArrayList<TaTreeNode>();
         }
         for (String child : children){
-            CommandTreeNode childNode = new CommandTreeNode(child, this);
+            TaTreeNode childNode = new TaTreeNode(child, this);
             this.children.add(childNode);
         }
     }
 
-    public List<CommandTreeNode> getChildren(){
+    public List<TaTreeNode> getChildren(){
         return this.children;
     }
 
@@ -59,7 +59,7 @@ public class CommandTreeNode {
         if (this.getChildren() == null){
             return null;
         }
-        for (CommandTreeNode child : this.getChildren()){
+        for (TaTreeNode child : this.getChildren()){
             result.add(child.getData());
         }
         return result;
@@ -69,7 +69,7 @@ public class CommandTreeNode {
         this.children = null;
     }
 
-    public CommandTreeNode getParent(){
+    public TaTreeNode getParent(){
         return this.parent;
     }
 
@@ -77,21 +77,21 @@ public class CommandTreeNode {
         return this.data;
     }
 
-    public CommandTreeNode getElement(String data) {
-        CommandTreeNode root = this;
+    public TaTreeNode getElement(String data) {
+        TaTreeNode root = this;
         while (root.getParent() != null){
             root = root.getParent();
         }
         return root.searchInSubTree(data);
     }
 
-    public CommandTreeNode searchInSubTree(String data) {
+    public TaTreeNode searchInSubTree(String data) {
 
         if (this.getData().equalsIgnoreCase(data)) {
             return this;
         } else {
             if (this.getChildren() != null) {
-                for (CommandTreeNode child : this.getChildren()) {
+                for (TaTreeNode child : this.getChildren()) {
                     if (child.searchInSubTree(data) != null) {
                         return child.searchInSubTree(data);
                     }

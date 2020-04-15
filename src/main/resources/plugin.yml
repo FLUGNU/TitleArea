@@ -8,5 +8,5 @@ website: flugnu.xyz
 
 commands:
   TitleArea:
-    description: Access the TitleArea plugin's commands
+    description: Create point that indicate when you look at them and enter them.
     aliases: ta

@@ -1,7 +1,7 @@
 package mrstraw.titlearea;
 
-import mrstraw.titlearea.commands.TitleAreaCommands;
-import mrstraw.titlearea.commands.TitleAreaTabCompleter;
+import mrstraw.titlearea.commands.TaCommands;
+import mrstraw.titlearea.commands.TaTabCompleter;
 import mrstraw.titlearea.interestpoint.InterestPoint;
 import mrstraw.titlearea.interestpoint.PointEvent;
 import org.bukkit.ChatColor;
@@ -14,17 +14,11 @@ public final class TitleArea extends JavaPlugin {
         ConfigurationSerialization.registerClass(InterestPoint.class, "InterestPoint");
     }
 
-    @Override
-    public void onEnable() {
-        System.out.println("-- TitleArea -- Enable plugin");
-        InterestPointFiles.setupFileInterestpoint();
-        InterestPointFiles.getFileInterestPoint().options().copyDefaults(true);
-        InterestPointFiles.saveFileInterestPoint();
+    public static String sendTitleArea(String sentence) {
+        String prefix = ChatColor.BOLD + "" + ChatColor.AQUA + "--------- - TitleArea - ---------" + ChatColor.RESET;
+        String sufix = ChatColor.BOLD + "" + ChatColor.AQUA +  "-----------------------------";
 
-        getCommand("TitleArea").setExecutor(new TitleAreaCommands());
-        getServer().getPluginManager().registerEvents(new PointEvent(), this);
-        getCommand("TitleArea").setTabCompleter(new TitleAreaTabCompleter());
-        System.out.println("-- TitleArea -- Plugin is enable");
+        return "\n" + prefix + "\n" + sentence + "\n" + sufix;
     }
 
     @Override
@@ -32,15 +26,17 @@ public final class TitleArea extends JavaPlugin {
         System.out.println("-- TitleArea -- Plugin is now disable");
     }
 
-    public static String sendTitleArea(String sentence, boolean close) {
-        String prefix = ChatColor.BOLD + "" + ChatColor.AQUA + "--------- - TitleArea - ---------" + ChatColor.RESET;
-        String sufix = ChatColor.BOLD + "" + ChatColor.AQUA +  "------------------------------";
-        if (close) {
-            return "\n" + prefix + "\n" + sentence + "\n" + sufix;
-        }
-        else {
-            return "\n" + prefix + "\n" + sentence;
-        }
+    @Override
+    public void onEnable() {
+        System.out.println("-- TitleArea -- Enable plugin");
+        InterestPointFiles.setupFileInterestpoint();
+        InterestPointFiles.getFileInterestPoint().options().copyDefaults(true);
+        InterestPointFiles.saveFileInterestPoint();
+
+        getCommand("TitleArea").setExecutor(new TaCommands());
+        getServer().getPluginManager().registerEvents(new PointEvent(), this);
+        getCommand("TitleArea").setTabCompleter(new TaTabCompleter());
+        System.out.println("-- TitleArea -- Plugin is enable");
     }
 
 }

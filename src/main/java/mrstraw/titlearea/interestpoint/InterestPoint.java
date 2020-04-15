@@ -33,6 +33,13 @@ public class InterestPoint implements ConfigurationSerializable {
         distance = 100;
     }
 
+    //------------------------
+    public static ArrayList<InterestPoint> getListPoint() { return listPoint; }
+    public String getTitle() { return title; }
+    public Location getLocation() { return coord; }
+    public int getRadius() { return radius; }
+    public int getDistance() { return distance; }
+
     public static InterestPoint deserialize(Map<String, Object> args) {
         String name = (String)args.get("name");
         String title = (String)args.get("title");
@@ -41,12 +48,6 @@ public class InterestPoint implements ConfigurationSerializable {
         int distance = (int)args.get("distance");
         return new InterestPoint(name, title, coord, radius, distance);
     }
-    public String getTitle() { return title; }
-    public Location getLocation() { return coord; }
-    public int getRadius() { return radius; }
-    public int getDistance() { return distance; }
-    //------------------------
-    static ArrayList<InterestPoint> getListPoint() { return listPoint; }
 
     public void setTitle(String title) { this.title = title; }
     public void setCoord(Location coord) { this.coord = coord; }
@@ -54,8 +55,6 @@ public class InterestPoint implements ConfigurationSerializable {
     public void setDistance(int distance) { this.distance = distance; }
     //------------------------
     public static void setListPoint() { listPoint = listAll(); }
-
-    public String getName() { return name; }
 
     @Override
     public Map<String, Object> serialize() {
@@ -70,6 +69,8 @@ public class InterestPoint implements ConfigurationSerializable {
         point.put("distance", this.getDistance());
         return point;
     }
+
+    public String getName() { return name; }
 
     private static ArrayList<InterestPoint> listAll() {
         ArrayList<InterestPoint> listOfPoint = new ArrayList<>();

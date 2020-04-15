@@ -33,7 +33,7 @@ public class InterestPointFiles {
         try {
             FileInterestPoint.save(file);
         } catch (IOException exception) {
-            System.out.println(sendTitleArea("Couldn't save file 'FileInterestPoint'",true));
+            System.out.println(sendTitleArea("Couldn't save file 'FileInterestPoint'"));
         }
         InterestPoint.setListPoint();
     }
