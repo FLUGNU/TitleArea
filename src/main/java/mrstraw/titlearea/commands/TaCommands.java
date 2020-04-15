@@ -27,7 +27,7 @@ public class TaCommands implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (args.length==0){
-            sender.sendMessage(sendTitleArea("Bad argument(s),\ndo '/TitleArea [arg]'\nor '/help TitleArea'"));
+            sender.sendMessage(sendTitleArea("No argument(s),\ndo '/TitleArea [arg]'\nor '/help TitleArea'"));
         }
 
     //------------------------------------------------------------------------------------------------------------------

@@ -32,8 +32,8 @@ public class CommandDelete {
         }
         //p n'a pas donné de nom au point à supprimer
         else {
-            sender.sendMessage(sendTitleArea("You have to choose a name key :\n/TitleArea InterestPoint Delete [NameKey]"));
+            sender.sendMessage(sendTitleArea("You have to choose a name :\n/TitleArea Delete [Name]"));
         }
-
     }
+
 }

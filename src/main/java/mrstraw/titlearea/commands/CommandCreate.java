@@ -13,37 +13,62 @@ import static mrstraw.titlearea.TitleArea.sendTitleArea;
 public class CommandCreate {
 
     public CommandCreate(CommandSender sender, String[] args) {
-        if (sender instanceof Player) {
-            Player p = (Player) sender;
 
     //----------- - Commande - -----------------------------------------------------------------------------------------
 
-            if (args.length == 2) {
-                FileConfiguration config = InterestPointFiles.getFileInterestPoint();
-                String pointName = args[1];
-                // Le nom donné est libre
-                if (!config.contains(pointName)) {
-                    InterestPoint newPoint = new InterestPoint(pointName, p.getLocation());
-                    config.createSection(pointName, newPoint.serialize());
-                    InterestPointFiles.saveFileInterestPoint();
-                    p.sendMessage(sendTitleArea("Nouveau point '" + pointName + "' créé"));
+        //le joueur appel bien : Create, le nom, la variable à modifier, la modification. (pfiouuu)
+        if (args.length == 4) {
+            String pointName = args[1];
+            String pointConstant = args[2];
+            String pointModification = args[3];
+
+            if (getListPoint.containsKey(pointName)) {
+                InterestPoint pointToChange = getListPoint.get(pointName);
+            //---------------
+
+                if (pointConstant.equalsIgnoreCase("Title")) {
+                    pointToChange.setTitle(pointName, pointModification);
                 }
+
+            //---------------
+
+                else if (pointConstant.equalsIgnoreCase("Distance")) {
+                    try {
+                        Integer.parseInt(pointModification);
+                        pointToChange.setDistance(pointName, pointModification);
+                    }
+                    catch (Exception e) {
+                        sender.sendMessage(sendTitleArea("The given modification '" + pointModification + "' is not a Integer"));
+                    }
+                }
+
+            //---------------
+
+                else if (pointConstant.equalsIgnoreCase("Radius")) {
+                    try {
+                        Integer.parseInt(pointModification);
+                        pointToChange.setRadius(pointName, pointModification);
+                    }
+                    catch (Exception e) {
+                        sender.sendMessage(sendTitleArea("The given modification '" + pointModification + "' is not a Integer"));
+                    }
+                }
+
+            //---------------
+            }
 
     //----------- - Erreurs d'arguments - ------------------------------------------------------------------------------
 
-                else {
-                    p.sendMessage(sendTitleArea("Name key '" + pointName + "' already exist, choose another"));
-                }
-            }
-            else if (args.length == 1) {
-                p.sendMessage(sendTitleArea("Bad argument, do :\n/TitleArea new [name]"));
-            }
+            // le nom du point donné n'existe pas
             else {
-                p.sendMessage(sendTitleArea("Too many arguments, do :\n/TitleArea new [name]"));
+                sender.sendMessage(sendTitleArea("The given name '" + pointName + "' does not exist"));
             }
         }
+        // le joueur n'a pas mis tout les arguments, ou en a trop mis.
         else {
-            sender.sendMessage(sendTitleArea("You have to be a player for that"));
+            sender.sendMessage(sendTitleArea("You have to this command in that order :" +
+                    "\n/TitleArea Modify [Name] [constant] [modification]"));
         }
+
     }
 }

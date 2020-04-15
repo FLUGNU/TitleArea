@@ -49,7 +49,10 @@ public class InterestPoint implements ConfigurationSerializable {
         return new InterestPoint(name, title, coord, radius, distance);
     }
 
-    public void setTitle(String title) { this.title = title; }
+    public void setTitle(String name, String title) {
+        this.title = title;
+        InterestPointFiles.getFileInterestPoint().set(name, this.serialize());
+    }
     public void setCoord(Location coord) { this.coord = coord; }
     public void setRadius(int radius) { this.radius = radius; }
     public void setDistance(int distance) { this.distance = distance; }
