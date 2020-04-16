@@ -24,9 +24,9 @@ public class CommandInfo {
                 for(InterestPoint iPoint : listAllPoint.values()) {
                     if(iPoint.getName().equals(pointName)) {
                         listText = listText + "\n  Title : " + iPoint.getTitle();
-                        listText = listText + "\n  X : " + iPoint.getLocation().getBlockX();
-                        listText = listText + "\n  Y : " + iPoint.getLocation().getBlockY();
-                        listText = listText + "\n  Z : " + iPoint.getLocation().getBlockZ();
+                        listText = listText + "\n  X : " + iPoint.getLocation().getX();
+                        listText = listText + "\n  Y : " + iPoint.getLocation().getY();
+                        listText = listText + "\n  Z : " + iPoint.getLocation().getZ();
                         listText = listText + "\n  Radius : " + iPoint.getRadius();
                         listText = listText + "\n  Distance : " + iPoint.getDistance();
                     }

@@ -87,13 +87,16 @@ public class InterestPoint implements ConfigurationSerializable {
 
     @Override
     public Map<String, Object> serialize() {
+        double X = Math.floor(this.getLocation().getX()) + 0.5;
+        double Y = Math.floor(this.getLocation().getY()) - 0.5;
+        double Z = Math.floor(this.getLocation().getZ()) + 0.5;
         LinkedHashMap point = new LinkedHashMap();
         point.put("name", this.getName());
         point.put("world", this.getLocation().getWorld().getName());
         point.put("title", this.getTitle());
-        point.put("x", this.getLocation().getX());
-        point.put("y", this.getLocation().getY());
-        point.put("z", this.getLocation().getZ());
+        point.put("x", X);
+        point.put("y", Y);
+        point.put("z", Z);
         point.put("radius", this.getRadius());
         point.put("distance", this.getDistance());
         return point;
