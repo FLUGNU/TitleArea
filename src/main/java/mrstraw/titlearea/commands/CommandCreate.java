@@ -3,72 +3,43 @@ package mrstraw.titlearea.commands;
 import mrstraw.titlearea.interestpoint.InterestPoint;
 import mrstraw.titlearea.interestpoint.InterestPointFiles;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
 
 import static mrstraw.titlearea.TitleArea.sendTitleArea;
 
 public class CommandCreate {
 
     public CommandCreate(CommandSender sender, String[] args) {
+        if (sender instanceof Player) {
+            Player p = (Player) sender;
 
     //----------- - Commande - -----------------------------------------------------------------------------------------
 
-        //le joueur appel bien : Create, le nom, la variable à modifier, la modification. (pfiouuu)
-        if (args.length == 4) {
-            String pointName = args[1];
-            String pointConstant = args[2];
-            String pointModification = args[3];
-
-            if (getListPoint.containsKey(pointName)) {
-                InterestPoint pointToChange = getListPoint.get(pointName);
-            //---------------
-
-                if (pointConstant.equalsIgnoreCase("Title")) {
-                    pointToChange.setTitle(pointName, pointModification);
+            if (args.length == 2) {
+                String pointName = args[1];
+                // Le nom donné est libre
+                if (!InterestPoint.getListPoint().containsKey(pointName)) {
+                    InterestPoint newPoint = new InterestPoint(pointName, p.getLocation());
+                    InterestPointFiles.getFileInterestPoint().createSection(pointName, newPoint.serialize());
+                    InterestPointFiles.saveFileInterestPoint();
+                    p.sendMessage(sendTitleArea("Nouveau point '" + pointName + "' créé"));
                 }
-
-            //---------------
-
-                else if (pointConstant.equalsIgnoreCase("Distance")) {
-                    try {
-                        Integer.parseInt(pointModification);
-                        pointToChange.setDistance(pointName, pointModification);
-                    }
-                    catch (Exception e) {
-                        sender.sendMessage(sendTitleArea("The given modification '" + pointModification + "' is not a Integer"));
-                    }
-                }
-
-            //---------------
-
-                else if (pointConstant.equalsIgnoreCase("Radius")) {
-                    try {
-                        Integer.parseInt(pointModification);
-                        pointToChange.setRadius(pointName, pointModification);
-                    }
-                    catch (Exception e) {
-                        sender.sendMessage(sendTitleArea("The given modification '" + pointModification + "' is not a Integer"));
-                    }
-                }
-
-            //---------------
-            }
 
     //----------- - Erreurs d'arguments - ------------------------------------------------------------------------------
 
-            // le nom du point donné n'existe pas
+                else {
+                    p.sendMessage(sendTitleArea("Name key '" + pointName + "' already exist, choose another"));
+                }
+            }
+            else if (args.length == 1) {
+                p.sendMessage(sendTitleArea("Bad argument, do :\n/TitleArea new [name]"));
+            }
             else {
-                sender.sendMessage(sendTitleArea("The given name '" + pointName + "' does not exist"));
+                p.sendMessage(sendTitleArea("Too many arguments, do :\n/TitleArea new [name]"));
             }
         }
-        // le joueur n'a pas mis tout les arguments, ou en a trop mis.
         else {
-            sender.sendMessage(sendTitleArea("You have to this command in that order :" +
-                    "\n/TitleArea Modify [Name] [constant] [modification]"));
+            sender.sendMessage(sendTitleArea("You have to be a player for that"));
         }
-
     }
 }

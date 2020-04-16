@@ -1,12 +1,14 @@
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\commands\TaTreeNode.java
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\commands\CommandDelete.java
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\commands\TaTabCompleter.java
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\interestpoint\InterestPoint.java
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\interestpoint\InterestPointFiles.java
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\commands\CommandInfo.java
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\commands\CommandCreate.java
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\commands\CommandList.java
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\interestpoint\PointEvent.java
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\TitleArea.java
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\commands\CommandModify.java
-C:\Users\oscar\IdeaProjects\source\TitleArea\src\main\java\mrstraw\titlearea\commands\TaCommands.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/interestpoint/InterestPointFiles.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/interestpoint/InterestPoint.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/commands/TaCommands.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/interestpoint/PointEvent.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/commands/CommandCreate.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/commands/CommandModify.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/commands/ShowPointRunnable.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/commands/CommandDelete.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/commands/CommandInfo.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/TitleArea.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/commands/TaTabCompleter.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/commands/TaTreeNode.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/commands/CommandList.java
+/Users/simon.m/Desktop/Git projet/PluginMinecraft/TitleAreaGit/src/main/java/mrstraw/titlearea/commands/CommandShow.java

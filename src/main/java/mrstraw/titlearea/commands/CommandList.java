@@ -19,8 +19,7 @@ public class CommandList {
 
         // Si le sender ne precise pas de monde
         if (args.length == 1) {
-            FileConfiguration config = InterestPointFiles.getFileInterestPoint();
-            Set<String> listKey = config.getKeys(false);
+            Set<String> listKey = InterestPoint.getListPoint().keySet();
 
             // Si il y n'y a pas de point d'interet du tout
             if (listKey.size() == 0) {

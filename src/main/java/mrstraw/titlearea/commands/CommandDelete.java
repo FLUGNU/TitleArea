@@ -1,5 +1,6 @@
 package mrstraw.titlearea.commands;
 
+import mrstraw.titlearea.interestpoint.InterestPoint;
 import mrstraw.titlearea.interestpoint.InterestPointFiles;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -12,13 +13,12 @@ public class CommandDelete {
 
     //----------- - Commande - -----------------------------------------------------------------------------------------
 
-        FileConfiguration config = InterestPointFiles.getFileInterestPoint();
         //p a donné un nom au point à supprimer
         if (args.length == 2) {
             String pointName = args[1];
             // Le nom donné existe
-            if (config.contains(pointName)) {
-                config.set(pointName, null);
+            if (InterestPoint.getListPoint().containsKey(pointName)) {
+                InterestPointFiles.getFileInterestPoint().set(pointName, null);
                 InterestPointFiles.saveFileInterestPoint();
                 sender.sendMessage(sendTitleArea("The interest point '" + pointName + "' has been deleted"));
             }

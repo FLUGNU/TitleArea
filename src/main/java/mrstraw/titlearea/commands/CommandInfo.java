@@ -4,8 +4,6 @@ import mrstraw.titlearea.interestpoint.InterestPoint;
 import mrstraw.titlearea.interestpoint.InterestPointFiles;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static mrstraw.titlearea.TitleArea.sendTitleArea;
@@ -16,12 +14,11 @@ public class CommandInfo {
 
     //----------- - Commande - -----------------------------------------------------------------------------------------
 
-        FileConfiguration config = InterestPointFiles.getFileInterestPoint();
         //p a donné un nom du point dont il veut l'info
         if (args.length == 2) {
             String pointName = args[1];
             // Le nom donné existe
-            if (config.contains(pointName)) {
+            if (InterestPoint.getListPoint().containsKey(pointName)) {
                 HashMap<String, InterestPoint> listAllPoint = InterestPoint.getListPoint();
                 String listText = "Info of point '" + pointName + "' :\n- - - - - - - - - - - - - - - - - -";
                 for(InterestPoint iPoint : listAllPoint.values()) {
