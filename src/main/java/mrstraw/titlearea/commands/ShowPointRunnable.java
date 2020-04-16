@@ -31,12 +31,12 @@ public class ShowPointRunnable implements Runnable {
                         ,location.getX()+distance*Math.cos(theta)*Math.cos(phi)
                         ,location.getY()+distance*Math.sin(theta)
                         ,location.getZ()+distance*Math.cos(theta)*Math.sin(phi)
-                        ,1,0,0,0);
-                world.spawnParticle(Particle.FIREWORKS_SPARK
+                        ,1,0,0,0,0);
+                world.spawnParticle(Particle.DAMAGE_INDICATOR
                         ,location.getX()+radius*Math.cos(theta)*Math.cos(phi)
                         ,location.getY()+radius*Math.sin(theta)
                         ,location.getZ()+radius*Math.cos(theta)*Math.sin(phi)
-                        ,1,0,0,0);
+                        ,1,0,0,0,0);
                 //Bukkit.broadcastMessage(Particle.FLAME+"Location: "+location);
             }
         }
