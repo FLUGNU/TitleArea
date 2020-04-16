@@ -14,7 +14,6 @@ public class CommandShow {
     static HashMap<String,Integer> listRunnable=new HashMap<String,Integer>();;
 
     public CommandShow(CommandSender sender, String[] args) {
-        BukkitScheduler scheduler = Bukkit.getScheduler();
         Player player =(Player)sender;
         HashMap<String, InterestPoint> listPoint = InterestPoint.getListPoint();
         InterestPoint interestPoint;
@@ -25,12 +24,12 @@ public class CommandShow {
                 interestPoint = listPoint.get(args[1]);
                 //if the runnable is already set:
                 if(listRunnable.containsKey(interestPoint.getName())){
-                    scheduler.cancelTask(listRunnable.get(interestPoint.getName()));
-                    listRunnable.remove(interestPoint.getName());
+                    cancelShow(interestPoint.getName());
                     player.sendMessage("Hide InterestPoint: "+interestPoint.getName());
                 }
                 //if the runnable isn't set:
                 else{
+                    BukkitScheduler scheduler = Bukkit.getScheduler();
                     ShowPointRunnable runnable=new ShowPointRunnable(interestPoint);
                     player.sendMessage("Show InterestPoint: "+interestPoint.getName());
                     Integer id=scheduler.scheduleSyncRepeatingTask(Bukkit.getPluginManager().getPlugin("TitleArea"),runnable,0L,10L);
@@ -45,6 +44,14 @@ public class CommandShow {
         //p is not specified
         else{
             sender.sendMessage(sendTitleArea("You have to choose a name :\n/TitleArea InterestPoint Show [Name]"));
+        }
+    }
+
+    public static void cancelShow(String insterestPointName){
+        if(listRunnable.containsKey(insterestPointName)){
+            BukkitScheduler scheduler = Bukkit.getScheduler();
+            scheduler.cancelTask(listRunnable.get(insterestPointName));
+            listRunnable.remove(insterestPointName);
         }
     }
 }

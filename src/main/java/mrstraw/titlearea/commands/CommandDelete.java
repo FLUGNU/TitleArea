@@ -20,6 +20,7 @@ public class CommandDelete {
             if (InterestPoint.getListPoint().containsKey(pointName)) {
                 InterestPointFiles.getFileInterestPoint().set(pointName, null);
                 InterestPointFiles.saveFileInterestPoint();
+                CommandShow.cancelShow(pointName);
                 sender.sendMessage(sendTitleArea("The interest point '" + pointName + "' has been deleted"));
             }
 
