@@ -1,6 +1,6 @@
 package mrstraw.titlearea.commands;
 
-import mrstraw.titlearea.interestpoint.InterestPointFiles;
+import mrstraw.titlearea.interestpoint.InterestPoint;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,7 +15,7 @@ public class TaCommands implements CommandExecutor {
 
     static {
 
-        ArrayList<String> PointSuggestions = new ArrayList<>(InterestPointFiles.getFileInterestPoint().getKeys(false));
+        ArrayList<String> PointSuggestions = new ArrayList<>(InterestPoint.getListPoint().keySet());
 
         Commands = new TaTreeNode("TitleArea");
         Commands.addChild("Create");
@@ -28,7 +28,7 @@ public class TaCommands implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (args.length==0){
-            sender.sendMessage(sendTitleArea("Bad argument(s),\ndo '/TitleArea [arg]'\nor '/help TitleArea'"));
+            sender.sendMessage(sendTitleArea("No argument(s),\ndo '/TitleArea [arg]'\nor '/help TitleArea'"));
         }
 
     //------------------------------------------------------------------------------------------------------------------

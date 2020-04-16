@@ -3,10 +3,7 @@ package mrstraw.titlearea.commands;
 import mrstraw.titlearea.interestpoint.InterestPoint;
 import mrstraw.titlearea.interestpoint.InterestPointFiles;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
 
 import static mrstraw.titlearea.TitleArea.sendTitleArea;
 
@@ -19,12 +16,11 @@ public class CommandCreate {
     //----------- - Commande - -----------------------------------------------------------------------------------------
 
             if (args.length == 2) {
-                FileConfiguration config = InterestPointFiles.getFileInterestPoint();
                 String pointName = args[1];
                 // Le nom donné est libre
-                if (!config.contains(pointName)) {
+                if (!InterestPoint.getListPoint().containsKey(pointName)) {
                     InterestPoint newPoint = new InterestPoint(pointName, p.getLocation());
-                    config.createSection(pointName, newPoint.serialize());
+                    InterestPointFiles.getFileInterestPoint().createSection(pointName, newPoint.serialize());
                     InterestPointFiles.saveFileInterestPoint();
                     p.sendMessage(sendTitleArea("Nouveau point '" + pointName + "' créé"));
                 }
