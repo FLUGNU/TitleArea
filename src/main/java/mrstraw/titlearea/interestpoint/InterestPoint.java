@@ -51,6 +51,17 @@ public class InterestPoint implements ConfigurationSerializable {
 
 //----------- - setters - ----------------------------------------------------------------------------------------------
 
+    public void setTitle(String title) {
+        this.title = title;
+        InterestPointFiles.getFileInterestPoint().set(this.getName(), this.serialize());
+        InterestPointFiles.saveFileInterestPoint();
+    }
+    public void setRadius(int radius) {
+        this.radius = radius;
+        InterestPointFiles.getFileInterestPoint().set(this.getName(), this.serialize());
+        InterestPointFiles.saveFileInterestPoint();
+    }
+
     private static HashMap<String, InterestPoint> listAll() {
         HashMap<String, InterestPoint> listOfPoint = new HashMap<>();
         FileConfiguration config = InterestPointFiles.getFileInterestPoint();
@@ -61,20 +72,6 @@ public class InterestPoint implements ConfigurationSerializable {
             listOfPoint.put(point.getName(),point);
         }
         return listOfPoint;
-    }
-
-    public String getName() { return name; }
-
-    public void setTitle(String title) {
-        this.title = title;
-        InterestPointFiles.getFileInterestPoint().set(this.getName(), this.serialize());
-        InterestPointFiles.saveFileInterestPoint();
-    }
-
-    public void setRadius(int radius) {
-        this.radius = radius;
-        InterestPointFiles.getFileInterestPoint().set(this.getName(), this.serialize());
-        InterestPointFiles.saveFileInterestPoint();
     }
 
 //----------- - methode - ----------------------------------------------------------------------------------------------
@@ -107,5 +104,7 @@ public class InterestPoint implements ConfigurationSerializable {
         InterestPointFiles.getFileInterestPoint().set(this.getName(), this.serialize());
         InterestPointFiles.saveFileInterestPoint();
     }
+
+    public String getName() { return name; }
 
 }

@@ -9,7 +9,7 @@ public class CommandModify {
 
     public CommandModify(CommandSender sender, String[] args) {
 
-        if (args.length > 4) {
+        if (args.length > 3) {
             String pointName = args[1];
 
     //----------- - redirection - --------------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ public class CommandModify {
                 String valueToModify = args[2];
 
                 String[] realArgs = new String[args.length-3];
-                System.arraycopy(args, 4, realArgs, 0, args.length - 4);
+                System.arraycopy(args, 3, realArgs, 0, args.length - 3);
 
             //--------------------
 
@@ -28,10 +28,10 @@ public class CommandModify {
                     modifyTitle(sender, pointToChange, realArgs);
                 }
                 else if (valueToModify.equalsIgnoreCase("Distance")) {
-                    modifyDistance(sender, args);
+                    modifyDistance(sender, pointToChange, realArgs);
                 }
                 else if (valueToModify.equalsIgnoreCase("Radius")) {
-                    modifyRadius(sender, args);
+                    modifyRadius(sender, pointToChange, realArgs);
                 }
 
     //----------- - Erreurs d'arguments - ------------------------------------------------------------------------------
@@ -51,24 +51,42 @@ public class CommandModify {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-    private void modifyTitle(CommandSender sender, InterestPoint pointName, String[] args) {
+    private void modifyTitle(CommandSender sender, InterestPoint pointToChange, String[] args) {
         StringBuilder newTitleBuilder = new StringBuilder();
         for(String iArgs : args) {
             newTitleBuilder.append(iArgs);
             newTitleBuilder.append(" ");
         }
         String newTitle = newTitleBuilder.toString();
-        pointName.setTitle(newTitle);
+        pointToChange.setTitle(newTitle);
         sender.sendMessage(sendTitleArea(
-                "Title of point '" + pointName.getName() + "' modify to '" + newTitle + "'"));
+                "Title of point '" + pointToChange.getName() + "' modify to '" + newTitle + "'"));
     }
 
-    private void modifyDistance(CommandSender sender, String[] args) {
-
+    private void modifyDistance(CommandSender sender, InterestPoint pointToChange, String[] args) {
+        String valeur = args[0];
+        try {
+            pointToChange.setDistance(Integer.parseInt(valeur));
+            sender.sendMessage(sendTitleArea(
+                    "Distance of point '" + pointToChange.getName() + "' modify to '" + valeur + "'"));
+        }
+        catch (Exception e) {
+            sender.sendMessage(sendTitleArea(
+                    "The given modification '" + valeur + "' is not a Integer"));
+        }
     }
 
-    private void modifyRadius(CommandSender sender, String[] args) {
-
+    private void modifyRadius(CommandSender sender, InterestPoint pointToChange, String[] args) {
+        String valeur = args[0];
+        try {
+            pointToChange.setRadius(Integer.parseInt(valeur));
+            sender.sendMessage(sendTitleArea(
+                    "Radius of point '" + pointToChange.getName() + "' modify to '" + valeur + "'"));
+        }
+        catch (Exception e) {
+            sender.sendMessage(sendTitleArea(
+                    "The given modification '" + valeur + "' is not a Integer"));
+        }
     }
 
 }
