@@ -18,7 +18,7 @@ public class PointEvent implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player p = event.getPlayer();
-        Location playerLoc = p.getLocation();
+        Location playerLoc = p.getEyeLocation();
         HashMap<String, InterestPoint> listAllPoint = InterestPoint.getListPoint();
         ArrayList<InterestPoint> aroundPoint = new ArrayList<>();
 
