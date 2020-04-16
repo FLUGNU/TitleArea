@@ -4,8 +4,7 @@ import mrstraw.titlearea.interestpoint.InterestPoint;
 import mrstraw.titlearea.interestpoint.InterestPointFiles;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import static mrstraw.titlearea.TitleArea.sendTitleArea;
 
@@ -15,20 +14,19 @@ public class CommandInfo {
 
     //----------- - Commande - -----------------------------------------------------------------------------------------
 
-        FileConfiguration config = InterestPointFiles.getFileInterestPoint();
         //p a donné un nom du point dont il veut l'info
         if (args.length == 2) {
             String pointName = args[1];
             // Le nom donné existe
-            if (config.contains(pointName)) {
-                ArrayList<InterestPoint> listAllPoint = InterestPoint.getListPoint();
+            if (InterestPoint.getListPoint().containsKey(pointName)) {
+                HashMap<String, InterestPoint> listAllPoint = InterestPoint.getListPoint();
                 String listText = "Info of point '" + pointName + "' :\n- - - - - - - - - - - - - - - - - -";
-                for(InterestPoint iPoint : listAllPoint) {
+                for(InterestPoint iPoint : listAllPoint.values()) {
                     if(iPoint.getName().equals(pointName)) {
                         listText = listText + "\n  Title : " + iPoint.getTitle();
-                        listText = listText + "\n  X : " + iPoint.getLocation().getBlockX();
-                        listText = listText + "\n  Y : " + iPoint.getLocation().getBlockY();
-                        listText = listText + "\n  Z : " + iPoint.getLocation().getBlockZ();
+                        listText = listText + "\n  X : " + iPoint.getLocation().getX();
+                        listText = listText + "\n  Y : " + iPoint.getLocation().getY();
+                        listText = listText + "\n  Z : " + iPoint.getLocation().getZ();
                         listText = listText + "\n  Radius : " + iPoint.getRadius();
                         listText = listText + "\n  Distance : " + iPoint.getDistance();
                     }

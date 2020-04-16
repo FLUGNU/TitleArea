@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import static mrstraw.titlearea.TitleArea.sendTitleArea;
@@ -18,8 +19,7 @@ public class CommandList {
 
         // Si le sender ne precise pas de monde
         if (args.length == 1) {
-            FileConfiguration config = InterestPointFiles.getFileInterestPoint();
-            Set<String> listKey = config.getKeys(false);
+            Set<String> listKey = InterestPoint.getListPoint().keySet();
 
             // Si il y n'y a pas de point d'interet du tout
             if (listKey.size() == 0) {
@@ -38,9 +38,9 @@ public class CommandList {
         // Si le sender precise le monde
         else if (args.length == 2) {
             String worldName = args[1];
-            ArrayList<InterestPoint> listAllPoint = InterestPoint.getListPoint();
+            HashMap<String, InterestPoint> listAllPoint = InterestPoint.getListPoint();
             String listText = "";
-            for(InterestPoint iPoint : listAllPoint) {
+            for(InterestPoint iPoint : listAllPoint.values()) {
                String worldiPoint = iPoint.getLocation().getWorld().getName();
                 if(worldiPoint.equals(worldName)) {
                     listText = listText + "  - " + iPoint.getName() + "\n";

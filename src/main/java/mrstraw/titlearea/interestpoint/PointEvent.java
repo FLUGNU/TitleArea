@@ -1,6 +1,5 @@
 package mrstraw.titlearea.interestpoint;
 
-import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,8 +8,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.Vector;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -21,12 +18,12 @@ public class PointEvent implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player p = event.getPlayer();
-        Location playerLoc = p.getLocation();
-        ArrayList<InterestPoint> listAllPoint = InterestPoint.getListPoint();
+        Location playerLoc = p.getEyeLocation();
+        HashMap<String, InterestPoint> listAllPoint = InterestPoint.getListPoint();
         ArrayList<InterestPoint> aroundPoint = new ArrayList<>();
 
         // --------- - Partie affichage distance - --------------------
-        for (InterestPoint iPoint : listAllPoint) {
+        for (InterestPoint iPoint : listAllPoint.values()) {
             if (playerLookPoint(playerLoc,iPoint)) {
                 aroundPoint.add(iPoint);
             }
