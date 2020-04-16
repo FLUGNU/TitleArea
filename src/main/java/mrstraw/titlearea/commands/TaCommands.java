@@ -23,6 +23,7 @@ public class TaCommands implements CommandExecutor {
         Commands.addChild("List");
         Commands.addChild("Info").addChildren(PointSuggestions);
         Commands.addChild("Modify").addChildren(PointSuggestions);
+        Commands.addChild("Show").addChildren(PointSuggestions);
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -44,8 +45,11 @@ public class TaCommands implements CommandExecutor {
         else if(args[0].equalsIgnoreCase("List")) {
             new CommandList(sender, args);
         }
-        else if(args[0].equalsIgnoreCase("info")) {
+        else if(args[0].equalsIgnoreCase("Info")) {
             new CommandInfo(sender, args);
+        }
+        else if(args[0].equalsIgnoreCase("Show")) {
+            new CommandShow(sender, args);
         }
 
     //------------------------------------------------------------------------------------------------------------------
