@@ -14,7 +14,7 @@ public class InterestPoint implements ConfigurationSerializable {
 
     private final String name;
     private String title;
-    private Location coord;
+    private Location location;
     private Double radius;
     private Double distance;
     //------------------------
@@ -22,17 +22,17 @@ public class InterestPoint implements ConfigurationSerializable {
 
 //----------- - constructors - -----------------------------------------------------------------------------------------
 
-    public InterestPoint(String name, String title, Location coord, Double radius, Double distance) {
+    public InterestPoint(String name, String title, Location location, Double radius, Double distance) {
         this.name = name;
         this.title = title;
-        this.coord = coord;
+        this.location = location;
         this.radius = radius;
         this.distance = distance;
     }
-    public InterestPoint(String name, Location coord) {
+    public InterestPoint(String name, Location location) {
         this.name = name;
         this.title = "Title of " + name;
-        this.coord = coord;
+        this.location = location;
         radius = 8.0;
         distance = 100.0;
     }
@@ -42,7 +42,7 @@ public class InterestPoint implements ConfigurationSerializable {
     //------------------------
     public static HashMap<String,InterestPoint> getListPoint() { return listPoint; }
     public String getTitle() { return title; }
-    public Location getLocation() { return coord; }
+    public Location getLocation() { return location; }
 
     //------------------------
     public static void setListPoint() { listPoint = listAll(); }
@@ -57,13 +57,23 @@ public class InterestPoint implements ConfigurationSerializable {
     }
 
     private static HashMap<String, InterestPoint> listAll() {
-        HashMap<String, InterestPoint> listOfPoint = new HashMap<>();
+        HashMap<String, InterestPoint> listOfPoint;
+        if(listPoint==null){
+            listOfPoint = new HashMap<>();
+        }else {
+            listOfPoint = listPoint;
+        }
         FileConfiguration config = InterestPointFiles.getFileInterestPoint();
         Set<String> Keys = config.getKeys(false);
 
         for (String key : Keys) {
-            InterestPoint point = deserialize(config.getConfigurationSection(key).getValues(false));
-            listOfPoint.put(point.getName(),point);
+            if(listOfPoint.containsKey(key)){
+                listOfPoint.get(key).update(deserialize(config.getConfigurationSection(key).getValues(false)));
+            }else {
+                InterestPoint point = deserialize(config.getConfigurationSection(key).getValues(false));
+                listOfPoint.put(point.getName(),point);
+            }
+
         }
         return listOfPoint;
     }
@@ -111,6 +121,13 @@ public class InterestPoint implements ConfigurationSerializable {
         this.distance = distance;
         InterestPointFiles.getFileInterestPoint().set(this.getName(), this.serialize());
         InterestPointFiles.saveFileInterestPoint();
+    }
+
+    public void update(InterestPoint interestPoint){
+        this.title=interestPoint.getTitle();
+        this.location = interestPoint.getLocation();
+        this.radius = interestPoint.getRadius();
+        this.distance = interestPoint.getDistance();
     }
 
 }
