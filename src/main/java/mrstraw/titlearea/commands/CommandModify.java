@@ -1,7 +1,10 @@
 package mrstraw.titlearea.commands;
 
 import mrstraw.titlearea.interestpoint.InterestPoint;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import static mrstraw.titlearea.TitleArea.sendTitleArea;
 
@@ -64,29 +67,115 @@ public class CommandModify {
     }
 
     private void modifyDistance(CommandSender sender, InterestPoint pointToChange, String[] args) {
-        String valeur = args[0];
-        try {
-            pointToChange.setDistance(Integer.parseInt(valeur));
-            sender.sendMessage(sendTitleArea(
-                    "Distance of point '" + pointToChange.getName() + "' modify to '" + valeur + "'"));
+        boolean isADouble = false; //le double est bien un double
+        double valeurDouble = 0.0;
+        String argument = args[0];
+
+        // Si le sender un seul argument
+        if (args.length == 1) {
+            // si l'argument est "me"
+            if (argument.equalsIgnoreCase("me")) {
+                // On regarde si le sender est un joueur
+                if (sender instanceof Player) {
+                    Player p = ((Player) sender).getPlayer();
+                    Vector delta = pointToChange.getLocation().toVector().add(p.getLocation().toVector().multiply(-1));
+                    valeurDouble = delta.length();
+                    isADouble = true;
+                }
+                // ce n'est pas un joueur
+                else {
+                    sender.sendMessage(sendTitleArea("You have to be a player for that"));
+                }
+            }
+            else {
+                try {
+                    // Test si l'arg est un double.
+                    valeurDouble = Double.parseDouble(argument);
+                    isADouble = true;
+                }
+                catch (Exception e) {
+                    //Dit au joueur que son argument n'est pas un int
+                    sender.sendMessage(sendTitleArea(
+                            "The given modification '" + argument + "' is not a Double or 'me'"));
+                }
+            }
         }
-        catch (Exception e) {
-            sender.sendMessage(sendTitleArea(
-                    "The given modification '" + valeur + "' is not a Integer"));
+        // Si le sender envoie trop d'argument
+        else {
+            sender.sendMessage(sendTitleArea("You send too many arguments"));
         }
+
+        if (isADouble) {
+            double pointRadius = pointToChange.getRadius();
+            // Regarde si n'est pas plus petit que le radius
+            if (valeurDouble >= pointRadius) {
+                pointToChange.setRadius(valeurDouble);
+                sender.sendMessage(sendTitleArea(
+                        "Radius of point '" + pointToChange.getName() + "' modify to '" + argument + "'"));
+            }
+            // Sinon dit au joueur de refaire un chiffre dans la fourchette
+            else {
+                sender.sendMessage(sendTitleArea(
+                        "The given modification '" + argument + "' must not be smaller that the radius (" + pointRadius + ")"));
+            }
+        }
+
     }
 
     private void modifyRadius(CommandSender sender, InterestPoint pointToChange, String[] args) {
-        String valeur = args[0];
-        try {
-            pointToChange.setRadius(Integer.parseInt(valeur));
-            sender.sendMessage(sendTitleArea(
-                    "Radius of point '" + pointToChange.getName() + "' modify to '" + valeur + "'"));
+        boolean isADouble = false; //le double est bien un double
+        double valeurDouble = 0.0;
+        String argument = args[0];
+
+        // Si le sender un seul argument
+        if (args.length == 1) {
+            // si l'argument est "me"
+            if (argument.equalsIgnoreCase("me")) {
+                // On regarde si le sender est un joueur
+                if (sender instanceof Player) {
+                    Player p = ((Player) sender).getPlayer();
+                    Vector delta = pointToChange.getLocation().toVector().add(p.getLocation().toVector().multiply(-1));
+                    valeurDouble = delta.length();
+                    isADouble = true;
+                }
+                // ce n'est pas un joueur
+                else {
+                    sender.sendMessage(sendTitleArea("You have to be a player for that"));
+                }
+            }
+            else {
+                try {
+                    // Test si l'arg est un double.
+                    valeurDouble = Double.parseDouble(argument);
+                    isADouble = true;
+                }
+                catch (Exception e) {
+                    //Dit au joueur que son argument n'est pas un int
+                    sender.sendMessage(sendTitleArea(
+                            "The given modification '" + argument + "' is not a Double or 'me'"));
+                }
+            }
         }
-        catch (Exception e) {
-            sender.sendMessage(sendTitleArea(
-                    "The given modification '" + valeur + "' is not a Integer"));
+        // Si le sender envoie trop d'argument
+        else {
+            sender.sendMessage(sendTitleArea("You send too many arguments"));
         }
+
+        if (isADouble) {
+            double pointDistance = pointToChange.getDistance();
+            // Regarde si est dans la fourchette admissible
+            if ( (valeurDouble < pointDistance) && (valeurDouble > 0) ) {
+                pointToChange.setRadius(valeurDouble);
+                sender.sendMessage(sendTitleArea(
+                        "Radius of point '" + pointToChange.getName() + "' modify to '" + argument + "'"));
+            }
+            // Sinon dit au joueur de refaire un chiffre dans la fourchette
+            else {
+                sender.sendMessage(sendTitleArea(
+                        "The given modification '" + argument + "' is not between '0 - " + pointDistance + "'"));
+            }
+        }
+
     }
 
 }

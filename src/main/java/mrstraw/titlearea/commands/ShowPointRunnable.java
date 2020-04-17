@@ -22,8 +22,8 @@ public class ShowPointRunnable implements Runnable {
     public void run() {
         World world = interestPoint.getLocation().getWorld();
         Location location = interestPoint.getLocation();
-        Integer distance = interestPoint.getDistance();
-        Integer radius = interestPoint.getRadius();
+        Double distance = interestPoint.getDistance();
+        Double radius = interestPoint.getRadius();
         for(Double theta=Math.random()*2*Math.PI/32; theta < 2 * Math.PI ; theta += 2*Math.PI/32){
             for(Double phi = Math.random()*2*Math.PI/32 ; phi < 2 * Math.PI ; phi += 2*Math.PI/32){
 

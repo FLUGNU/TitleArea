@@ -42,7 +42,7 @@ public class PointEvent implements Listener {
             InterestPoint pointToPrint = aroundPoint.get(0);
             // Si voie plusieurs points
             if (aroundPoint.size() != 1) {
-                int smallest = Integer.MAX_VALUE;
+                double smallest = Double.MAX_VALUE;
                 for (InterestPoint iPoint : aroundPoint) {
                     if (iPoint.getDistance() < smallest) {
                         smallest = iPoint.getDistance();
@@ -72,8 +72,8 @@ public class PointEvent implements Listener {
     private boolean playerLookPoint(Location playerLoc, InterestPoint point) {
         //---------- - Variables - -------------------------------------------------------
         Location pointLoc = point.getLocation();
-        int pointRadius = point.getRadius();
-        int pointDistance = point.getDistance();
+        double pointRadius = point.getRadius();
+        double pointDistance = point.getDistance();
         //---------- - Calculs - ---------------------------------------------------------
         Vector playerDirection = playerLoc.getDirection().normalize();
         Vector delta = pointLoc.toVector().add(playerLoc.toVector().multiply(-1));
@@ -92,7 +92,7 @@ public class PointEvent implements Listener {
     private boolean playerInPoint(Location playerLoc, InterestPoint point) {
         //---------- - Variables - -------------------------------------------------------
         Location pointLoc = point.getLocation();
-        int pointRadius = point.getRadius();
+        double pointRadius = point.getRadius();
         //---------- - Calculs - ---------------------------------------------------------
         Vector delta = pointLoc.toVector().add(playerLoc.toVector().multiply(-1));
         double D = delta.length();

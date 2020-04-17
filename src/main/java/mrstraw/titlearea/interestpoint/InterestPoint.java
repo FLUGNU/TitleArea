@@ -15,14 +15,14 @@ public class InterestPoint implements ConfigurationSerializable {
     private final String name;
     private String title;
     private Location coord;
-    private int radius;
-    private int distance;
+    private Double radius;
+    private Double distance;
     //------------------------
     private static HashMap<String, InterestPoint> listPoint;
 
 //----------- - constructors - -----------------------------------------------------------------------------------------
 
-    public InterestPoint(String name, String title, Location coord, int radius, int distance) {
+    public InterestPoint(String name, String title, Location coord, Double radius, Double distance) {
         this.name = name;
         this.title = title;
         this.coord = coord;
@@ -33,8 +33,8 @@ public class InterestPoint implements ConfigurationSerializable {
         this.name = name;
         this.title = "Title of " + name;
         this.coord = coord;
-        radius = 8;
-        distance = 100;
+        radius = 8.0;
+        distance = 100.0;
     }
 
 //----------- - getters - ----------------------------------------------------------------------------------------------
@@ -43,23 +43,17 @@ public class InterestPoint implements ConfigurationSerializable {
     public static HashMap<String,InterestPoint> getListPoint() { return listPoint; }
     public String getTitle() { return title; }
     public Location getLocation() { return coord; }
-    public int getRadius() { return radius; }
-    public int getDistance() { return distance; }
 
     //------------------------
     public static void setListPoint() { listPoint = listAll(); }
 
-//----------- - setters - ----------------------------------------------------------------------------------------------
-
-    public void setTitle(String title) {
-        this.title = title;
-        InterestPointFiles.getFileInterestPoint().set(this.getName(), this.serialize());
-        InterestPointFiles.saveFileInterestPoint();
-    }
-    public void setRadius(int radius) {
-        this.radius = radius;
-        InterestPointFiles.getFileInterestPoint().set(this.getName(), this.serialize());
-        InterestPointFiles.saveFileInterestPoint();
+    public static InterestPoint deserialize(Map<String, Object> args) {
+        String name = (String)args.get("name");
+        String title = (String)args.get("title");
+        Location coord = new Location( Bukkit.getWorld((String)args.get("world")), (Double)args.get("x"), (Double)args.get("y"), (Double)args.get("z"));
+        Double radius = (Double)args.get("radius");
+        Double distance = (Double)args.get("distance");
+        return new InterestPoint(name, title, coord, radius, distance);
     }
 
     private static HashMap<String, InterestPoint> listAll() {
@@ -74,16 +68,27 @@ public class InterestPoint implements ConfigurationSerializable {
         return listOfPoint;
     }
 
+//----------- - setters - ----------------------------------------------------------------------------------------------
+
+    public void setTitle(String title) {
+        this.title = title;
+        InterestPointFiles.getFileInterestPoint().set(this.getName(), this.serialize());
+        InterestPointFiles.saveFileInterestPoint();
+    }
+
+    public String getName() { return name; }
+
+    public Double getRadius() { return radius; }
+
+    public void setRadius(Double radius) {
+        this.radius = radius;
+        InterestPointFiles.getFileInterestPoint().set(this.getName(), this.serialize());
+        InterestPointFiles.saveFileInterestPoint();
+    }
+
 //----------- - methode - ----------------------------------------------------------------------------------------------
 
-    public static InterestPoint deserialize(Map<String, Object> args) {
-        String name = (String)args.get("name");
-        String title = (String)args.get("title");
-        Location coord = new Location( Bukkit.getWorld((String)args.get("world")), (Double)args.get("x"), (Double)args.get("y"), (Double)args.get("z"));
-        int radius = (int)args.get("radius");
-        int distance = (int)args.get("distance");
-        return new InterestPoint(name, title, coord, radius, distance);
-    }
+    public Double getDistance() { return distance; }
 
     @Override
     public Map<String, Object> serialize() {
@@ -102,12 +107,10 @@ public class InterestPoint implements ConfigurationSerializable {
         return point;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(Double distance) {
         this.distance = distance;
         InterestPointFiles.getFileInterestPoint().set(this.getName(), this.serialize());
         InterestPointFiles.saveFileInterestPoint();
     }
-
-    public String getName() { return name; }
 
 }
