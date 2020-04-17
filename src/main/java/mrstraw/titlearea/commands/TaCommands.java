@@ -29,8 +29,8 @@ public class TaCommands implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if(!((Player)sender).hasPermission("titlearea.*")){
-            ((Player)sender).sendMessage(ChatColor.RED+"You don't have permission.");
+        if(!sender.hasPermission("titlearea.*")){
+            sender.sendMessage(ChatColor.RED+"You don't have permission.");
             return true;
         }
         if (args.length==0){
