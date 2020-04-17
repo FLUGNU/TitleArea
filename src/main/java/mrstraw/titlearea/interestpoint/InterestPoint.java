@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
+
 import java.util.*;
 
 @SerializableAs("InterestPoint")
@@ -18,7 +19,7 @@ public class InterestPoint implements ConfigurationSerializable {
     private Double radius;
     private Double distance;
     //------------------------
-    private static HashMap<String, InterestPoint> listPoint;
+    private static HashMap<String, InterestPoint> listPoint=new HashMap<String, InterestPoint>();
 
 //----------- - constructors - -----------------------------------------------------------------------------------------
 
@@ -65,10 +66,21 @@ public class InterestPoint implements ConfigurationSerializable {
         }
         FileConfiguration config = InterestPointFiles.getFileInterestPoint();
         Set<String> Keys = config.getKeys(false);
-
+        ArrayList<String> toRemove=new ArrayList<>();
+        for(String key:listOfPoint.keySet()){
+            if(!Keys.contains(key)){
+                toRemove.add(key);
+            }
+        }
+        toRemove.forEach(key->listOfPoint.remove(key));
         for (String key : Keys) {
             if(listOfPoint.containsKey(key)){
-                listOfPoint.get(key).update(deserialize(config.getConfigurationSection(key).getValues(false)));
+                if(config.getConfigurationSection(key)==null && listOfPoint.containsKey(key)){
+                    listOfPoint.remove(key);
+                }
+                else{
+                    listOfPoint.get(key).update(deserialize(config.getConfigurationSection(key).getValues(false)));
+                }
             }else {
                 InterestPoint point = deserialize(config.getConfigurationSection(key).getValues(false));
                 listOfPoint.put(point.getName(),point);

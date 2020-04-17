@@ -18,12 +18,12 @@ public class TaCommands implements CommandExecutor {
         ArrayList<String> PointSuggestions = new ArrayList<>(InterestPoint.getListPoint().keySet());
 
         Commands = new TaTreeNode("TitleArea");
-        Commands.addChild("Create");
-        Commands.addChild("Delete").addChildren(PointSuggestions);
-        Commands.addChild("List");
-        Commands.addChild("Info").addChildren(PointSuggestions);
-        Commands.addChild("Modify").addChildren(PointSuggestions);
-        Commands.addChild("Show").addChildren(PointSuggestions);
+        Commands.addChild("create");
+        Commands.addChild("delete").addChildren(PointSuggestions);
+        Commands.addChild("list");
+        Commands.addChild("info").addChildren(PointSuggestions);
+        Commands.addChild("modify").addChildren(PointSuggestions);
+        Commands.addChild("show").addChildren(PointSuggestions);
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -59,5 +59,16 @@ public class TaCommands implements CommandExecutor {
             return true;
         }
         return false;
+    }
+    public static void update(){
+        ArrayList<String> PointSuggestions = new ArrayList<>(InterestPoint.getListPoint().keySet());
+
+        Commands = new TaTreeNode("TitleArea");
+        Commands.addChild("create");
+        Commands.addChild("delete").addChildren(PointSuggestions);
+        Commands.addChild("list");
+        Commands.addChild("info").addChildren(PointSuggestions);
+        Commands.addChild("modify").addChildren(PointSuggestions);
+        Commands.addChild("show").addChildren(PointSuggestions);
     }
 }
