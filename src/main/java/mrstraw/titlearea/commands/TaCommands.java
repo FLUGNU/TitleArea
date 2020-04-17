@@ -1,9 +1,11 @@
 package mrstraw.titlearea.commands;
 
 import mrstraw.titlearea.interestpoint.InterestPoint;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,10 @@ public class TaCommands implements CommandExecutor {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        if(!((Player)sender).hasPermission("titlearea.*")){
+            ((Player)sender).sendMessage(ChatColor.RED+"You don't have permission.");
+            return true;
+        }
         if (args.length==0){
             sender.sendMessage(sendTitleArea("No argument(s),\ndo '/TitleArea [arg]'\nor '/help TitleArea'"));
         }
