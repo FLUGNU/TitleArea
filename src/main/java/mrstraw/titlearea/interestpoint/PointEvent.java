@@ -31,7 +31,7 @@ public class PointEvent implements Listener {
         // Si il ne voie pas de point
         if (aroundPoint.size() == 0) {
             // Mais qu'il regardais un point, on efface le title
-            if (!playerIndexPoint.get(p.getUniqueId()).equals("")) {
+            if (playerIndexPoint.containsKey(p.getUniqueId()) && !playerIndexPoint.get(p.getUniqueId()).equals("")) {
                 p.sendTitle("","",0,0,0);
             }
             playerIndexPoint.put(p.getUniqueId(),"");
@@ -51,17 +51,12 @@ public class PointEvent implements Listener {
                 }
             }
             // Si le point à afficher est diff du precedent, on l'affiche
-            if (!playerIndexPoint.get(p.getUniqueId()).equals(pointToPrint.getName())) {
+            if (playerIndexPoint.containsKey(p.getUniqueId()) && !playerIndexPoint.get(p.getUniqueId()).equals(pointToPrint.getName())) {
                 p.sendTitle("", pointToPrint.getTitle(), 3,30,15);
             }
             //on met à jour le point observé
             playerIndexPoint.put(p.getUniqueId(),pointToPrint.getName());
         }
-    }
-
-    @EventHandler
-    public void onPlayerConnect(PlayerJoinEvent event) {
-        playerIndexPoint.put(event.getPlayer().getUniqueId(),"");
     }
 
     @EventHandler
