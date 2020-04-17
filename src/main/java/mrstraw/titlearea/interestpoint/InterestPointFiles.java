@@ -1,5 +1,6 @@
 package mrstraw.titlearea.interestpoint;
 
+import mrstraw.titlearea.commands.TaCommands;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -37,6 +38,7 @@ public class InterestPointFiles {
             System.out.println(sendTitleArea("Couldn't save file 'FileInterestPoint.yml'"));
         }
         InterestPoint.setListPoint();
+        TaCommands.update();
     }
 
     public static void reloadFileInterestPoint() {
