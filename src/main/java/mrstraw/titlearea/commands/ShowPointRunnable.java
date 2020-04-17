@@ -1,18 +1,13 @@
 package mrstraw.titlearea.commands;
 
 import mrstraw.titlearea.interestpoint.InterestPoint;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class ShowPointRunnable implements Runnable {
 
     private InterestPoint interestPoint;
-
 
     public ShowPointRunnable(InterestPoint interestPoint) {
         this.interestPoint = interestPoint;

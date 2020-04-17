@@ -1,5 +1,7 @@
 package mrstraw.titlearea.interestpoint;
 
+import javafx.util.Pair;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,17 +14,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+import static org.bukkit.Bukkit.getServer;
+
 public class PointEvent implements Listener {
-    private static HashMap<UUID, String> playerIndexPoint = new HashMap<>();
+    private static HashMap<UUID, ArrayList<String>> playerIndexPoint = setPlayerIndexPoint();
+
+    private static HashMap<UUID, ArrayList<String>> setPlayerIndexPoint() {
+        HashMap<UUID, ArrayList<String>> hashMapPlayer = new HashMap<>();
+        ArrayList<Player> allPlayer = new ArrayList<>(Bukkit.getOnlinePlayers());
+        for (Player iPlayer : allPlayer) {
+            ArrayList<String> diRa =  new ArrayList<>();
+            diRa.add(""); // Distance initialize
+            diRa.add(""); // Radius initialize
+            hashMapPlayer.put(iPlayer.getUniqueId(), diRa);
+        }
+        return hashMapPlayer;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
+
         Player p = event.getPlayer();
+        ArrayList<String> playerTampon = playerIndexPoint.get(p.getUniqueId()); // 1:distance, 2:Radius
+
         Location playerLoc = p.getEyeLocation();
         HashMap<String, InterestPoint> listAllPoint = InterestPoint.getListPoint();
         ArrayList<InterestPoint> aroundPoint = new ArrayList<>();
 
-        // --------- - Partie affichage distance - --------------------
+    //------------ - Partie affichage distance - -----------------------------------------------------------------------
         for (InterestPoint iPoint : listAllPoint.values()) {
             if (playerLookPoint(playerLoc,iPoint)) {
                 aroundPoint.add(iPoint);
@@ -31,10 +53,10 @@ public class PointEvent implements Listener {
         // Si il ne voie pas de point
         if (aroundPoint.size() == 0) {
             // Mais qu'il regardais un point, on efface le title
-            if (playerIndexPoint.containsKey(p.getUniqueId()) && !playerIndexPoint.get(p.getUniqueId()).equals("")) {
+            if (!playerTampon.get(0).equals("")) {
                 p.sendTitle("","",0,0,0);
             }
-            playerIndexPoint.put(p.getUniqueId(),"");
+            playerTampon.set(0,"");
         }
         // Si il voie un/des points
         else {
@@ -51,12 +73,45 @@ public class PointEvent implements Listener {
                 }
             }
             // Si le point à afficher est diff du precedent, on l'affiche
-            if (playerIndexPoint.containsKey(p.getUniqueId()) && !playerIndexPoint.get(p.getUniqueId()).equals(pointToPrint.getName())) {
+            if (playerTampon.get(0).equals(pointToPrint.getName())) {
                 p.sendTitle("", pointToPrint.getTitle(), 3,30,15);
             }
             //on met à jour le point observé
-            playerIndexPoint.put(p.getUniqueId(),pointToPrint.getName());
+            playerTampon.set(0,pointToPrint.getName());
         }
+
+    //------------ - Partie affichage radius - -------------------------------------------------------------------------
+
+        /*for (InterestPoint iPoint : listAllPoint.values()) {
+            if (playerInPoint(playerLoc,iPoint)) {
+                aroundPoint.add(iPoint);
+            }
+        }
+        // Si le joueur n'est pas dans un radius
+        if (aroundPoint.size() == 0) {
+            playerTampon.set(1, "");
+        }
+        else {
+            InterestPoint pointToPrint = aroundPoint.get(0);
+            double smallest = Double.MAX_VALUE;
+            for (InterestPoint iPoint : aroundPoint) {
+                if (iPoint.getRadius() < smallest) {
+                    smallest = iPoint.getRadius();
+                    pointToPrint = iPoint;
+                }
+            }
+            // Si le point à afficher est diff du precedent, on l'affiche
+            if (playerTampon.get(1).equals(pointToPrint.getName())) {
+                p.sendTitle(pointToPrint.getTitle(), "", 3,30,15);
+            }
+            //on met à jour le point observé
+            playerTampon.set(1,pointToPrint.getName());
+        }*/
+
+    //------------ - Réinjection de l'arrayList dans la hashMap- -------------------------------------------------------
+
+        playerIndexPoint.put(p.getUniqueId(), playerTampon);
+
     }
 
     @EventHandler

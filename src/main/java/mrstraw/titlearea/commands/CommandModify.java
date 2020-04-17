@@ -109,7 +109,7 @@ public class CommandModify {
             double pointRadius = pointToChange.getRadius();
             // Regarde si n'est pas plus petit que le radius
             if (valeurDouble >= pointRadius) {
-                pointToChange.setRadius(valeurDouble);
+                pointToChange.setDistance(valeurDouble);
                 sender.sendMessage(sendTitleArea(
                         "Radius of point '" + pointToChange.getName() + "' modify to '" + argument + "'"));
             }
