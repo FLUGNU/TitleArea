@@ -42,16 +42,17 @@ public class PointEvent implements Listener {
 
         Location playerLoc = p.getEyeLocation();
         HashMap<String, InterestPoint> listAllPoint = InterestPoint.getListPoint();
-        ArrayList<InterestPoint> aroundPoint = new ArrayList<>();
+        ArrayList<InterestPoint> aroundDistancePoint = new ArrayList<>();
+        ArrayList<InterestPoint> aroundRadiusPoint = new ArrayList<>();
 
     //------------ - Partie affichage distance - -----------------------------------------------------------------------
         for (InterestPoint iPoint : listAllPoint.values()) {
             if (playerLookPoint(playerLoc,iPoint)) {
-                aroundPoint.add(iPoint);
+                aroundDistancePoint.add(iPoint);
             }
         }
         // Si il ne voie pas de point
-        if (aroundPoint.size() == 0) {
+        if (aroundDistancePoint.size() == 0) {
             // Mais qu'il regardais un point, on efface le title
             if (!playerTampon.get(0).equals("")) {
                 p.sendTitle("","",0,0,0);
@@ -61,11 +62,11 @@ public class PointEvent implements Listener {
         // Si il voie un/des points
         else {
             // Si il voie un seul point
-            InterestPoint pointToPrint = aroundPoint.get(0);
+            InterestPoint pointToPrint = aroundDistancePoint.get(0);
             // Si voie plusieurs points
-            if (aroundPoint.size() != 1) {
+            if (aroundDistancePoint.size() != 1) {
                 double smallest = Double.MAX_VALUE;
-                for (InterestPoint iPoint : aroundPoint) {
+                for (InterestPoint iPoint : aroundDistancePoint) {
                     if (iPoint.getDistance() < smallest) {
                         smallest = iPoint.getDistance();
                         pointToPrint = iPoint;
@@ -73,7 +74,7 @@ public class PointEvent implements Listener {
                 }
             }
             // Si le point à afficher est diff du precedent, on l'affiche
-            if (playerTampon.get(0).equals(pointToPrint.getName())) {
+            if (!playerTampon.get(0).equals(pointToPrint.getName())) {
                 p.sendTitle("", pointToPrint.getTitle(), 3,30,15);
             }
             //on met à jour le point observé
@@ -82,31 +83,31 @@ public class PointEvent implements Listener {
 
     //------------ - Partie affichage radius - -------------------------------------------------------------------------
 
-        /*for (InterestPoint iPoint : listAllPoint.values()) {
+        for (InterestPoint iPoint : listAllPoint.values()) {
             if (playerInPoint(playerLoc,iPoint)) {
-                aroundPoint.add(iPoint);
+                aroundRadiusPoint.add(iPoint);
             }
         }
         // Si le joueur n'est pas dans un radius
-        if (aroundPoint.size() == 0) {
+        if (aroundRadiusPoint.size() == 0) {
             playerTampon.set(1, "");
         }
         else {
-            InterestPoint pointToPrint = aroundPoint.get(0);
+            InterestPoint pointToPrint = aroundRadiusPoint.get(0);
             double smallest = Double.MAX_VALUE;
-            for (InterestPoint iPoint : aroundPoint) {
+            for (InterestPoint iPoint : aroundRadiusPoint) {
                 if (iPoint.getRadius() < smallest) {
                     smallest = iPoint.getRadius();
                     pointToPrint = iPoint;
                 }
             }
             // Si le point à afficher est diff du precedent, on l'affiche
-            if (playerTampon.get(1).equals(pointToPrint.getName())) {
+            if (!playerTampon.get(1).equals(pointToPrint.getName())) {
                 p.sendTitle(pointToPrint.getTitle(), "", 3,30,15);
             }
             //on met à jour le point observé
             playerTampon.set(1,pointToPrint.getName());
-        }*/
+        }
 
     //------------ - Réinjection de l'arrayList dans la hashMap- -------------------------------------------------------
 
@@ -117,6 +118,14 @@ public class PointEvent implements Listener {
     @EventHandler
     public void onPlayerDisconnect(PlayerQuitEvent event) {
         playerIndexPoint.remove(event.getPlayer().getUniqueId());
+    }
+
+    @EventHandler
+    public void onPlayerConnect(PlayerJoinEvent event) {
+        ArrayList<String> diRa =  new ArrayList<>();
+        diRa.add(""); // Distance initialize
+        diRa.add(""); // Radius initialize
+        playerIndexPoint.put(event.getPlayer().getUniqueId(), diRa);
     }
 
     private boolean playerLookPoint(Location playerLoc, InterestPoint point) {
